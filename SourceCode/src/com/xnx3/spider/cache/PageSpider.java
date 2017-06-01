@@ -5,12 +5,14 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.xnx3.BaseVO;
+import com.xnx3.Lang;
 import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
 import com.xnx3.spider.vo.ResourceVO;
@@ -93,8 +95,16 @@ public class PageSpider {
 			
 			//判断当前是否有后缀，同一将其变为html后缀
 			String beforeName = UrlUtil.getFileBeforeName(htmlName);
-			//将此变为html后缀保存
-			htmlName = beforeName+".html";
+			
+			//判断其中是否有 ？的动态传递参数。若有参数，还要将参数也提取出来
+			String dynamicParam = "";	//动态参数。如果url中没有get传递的参数，则此处为空字符串即可
+			if(url.indexOf("?") > 0){
+				//有动态参数，那么，动态参数要加UUID
+				dynamicParam = Lang.uuid();
+			}
+			
+			//将此变为html后缀的页面进行保存
+			htmlName = beforeName+ (dynamicParam.length() > 0 ? "__"+dynamicParam:"") +".html";
 			
 			try {
 				FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, encode);

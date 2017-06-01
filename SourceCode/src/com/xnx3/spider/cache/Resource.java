@@ -19,7 +19,7 @@ public class Resource {
 	
 //	private String type;		//当前资源文件的类型，包含： image、js、css、html
 //	private String originalFile;	//原始文件，格式如 a.jpg
-	private String localFile;		//变成缓存到本地文件，格式如 a.jpg
+	private String localFile;		//变成缓存到本地文件，格式如 a.jpg 
 	private String localRelativePath;	//存储在本地的相对路径，如 images/   而html的，则为空字符串
 	
 	//当前页面的资源路径所在。如 www.baidu.com/a/b/c.html 那么这里便是 www.baidu.com/a/b/ 此项的作用，是当 originalUrl 是相对路径时，进行自动补齐其路径
