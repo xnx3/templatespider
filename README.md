@@ -6,3 +6,6 @@
 
 
 #### 计划于2018.2.4日立春之日正式对外发布！
+
+
+<video src="http://cdn.weiunity.com/site/341/news/video/201801111515662115617025336.mp4" controls="controls"></video>
