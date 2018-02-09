@@ -1,16 +1,21 @@
 # 所见网站，皆可为我所用－templatespider
+
+## 软件下载
+[点击此处下载 Windows平台 运行软件](https://github.com/xnx3/templatespider/raw/master/application/spider.zip)
+<br/>软件下载后，解压即可直接使用！不说没用的，不吹多牛，能直接用，产生价值才是真的！
 <br/>
 
-1. 看着网上哪个网站好，可用此软件将其下载，变为模版，可以供网市场云建站、帝国CMS、织梦CMS等各大建站系统使用<br/>
+## 项目分支简介
+1. 看着网上哪个网站好，可用此软件将其下载，变为模版，可以供网市场云建站、帝国CMS、织梦CMS等各大建站系统使用 [application/spider.zip](https://github.com/xnx3/templatespider/raw/master/application/spider.zip)<br/>
 2. 下载的模版，采用人工智能，自动进行计算识别，将其转化，导出网市场云建站可使用的模版，做到一键导入使用！（尚未完成）<br/>
 
 ````
-wangmarket                          GitHub目录
+templatespider                      GitHub目录
 ├─SourceCode                        项目源代码
 │  ├─lib                            依赖的 jar 包
 │  ├─src                            java 源码
 └─application                       可直接运行的应用(下载后可直接部署起来运行)
-  └─spider.zip                     扒网站工具的 Windows 应用程序
+  └─spider.zip                      扒网站工具的 Windows 应用程序
 ````
 
 
