@@ -19,7 +19,7 @@ public class RightMenu extends JFrame{
     }
     
     public void init(){
-    	private JPopupMenu menu = new JPopupMenu();  
+    	JPopupMenu menu = new JPopupMenu();  
 		JMenuItem varItem = new JMenuItem("创建模版变量");
 		this.add(menu);
     }
