@@ -1,5 +1,6 @@
 package com.xnx3.spider;
 
+import com.xnx3.StringUtil;
 import com.xnx3.spider.ui.MainUI;
 import com.xnx3.ui.Log;
 
@@ -30,6 +31,10 @@ public class Global {
 	public static String getLocalTemplatePath(){
 		if(localTemplatePath == null){
 			localTemplatePath = Global.class.getResource("/").getPath();
+			if(localTemplatePath.indexOf("%") > -1){
+				//判断路径中是否有URL编码，若有，进行转码为正常汉字
+				localTemplatePath = StringUtil.urlToString(localTemplatePath);
+			}
 		}
 		return localTemplatePath+templateDomain+"/";
 	}
@@ -40,17 +45,15 @@ public class Global {
 	
 	
 	public static Log logUI;
-	static{
-		if(logUI == null){
-			logUI = new Log();
-			logUI.setTitle("运行日志");
-		}
-	}
 	/**
 	 * 写出日志
 	 * @param text
 	 */
 	public static void log(String text){
+		if(logUI == null){
+			logUI = new Log();
+			logUI.setTitle("运行日志");
+		}
 		System.out.println("log--"+text);
 		logUI.appendLineForLastAndPositionLast(text);
 	}

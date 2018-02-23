@@ -6,18 +6,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.xnx3.StringUtil;
+import com.xnx3.UrlUtil;
+
 
 public class T1 {
 	public static void main(String[] args) throws IOException {
-		String a = "haha <p>2</p>";
-		Document doc = Jsoup.parse(a);
-		Elements eles = doc.body().children();
-		System.out.println(doc.body());
-		System.out.println(doc.body().html());
-		
-		for (int i = 0; i < eles.size(); i++) {
-			Element ele = eles.get(i);
-			System.out.println(ele.toString());
+		String path = "/Users/apple/Desktop/%e6%92%92%e6%97%a6%20/null/";
+		if(path.indexOf("%") > -1){
+			System.out.println(StringUtil.urlToString(path));
 		}
 		
 		

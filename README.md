@@ -1,7 +1,7 @@
 # 所见网站，皆可为我所用－templatespider
 看好哪个网站，指定好URL，自动扒下来做成模版。并且所下载的css、js、图片、html文件会自动分好类保存到特定文件夹！
 <br/>
-项目最初目的为 [网市场云建站系统（CMS建站系统）](https://gitee.com/mail_osc/wangmarket) 因模版量少而做。用了之前写的 [xnx3](https://gitee.com/mail_osc/wangmarket) ，以及 Jsoup 。
+项目最初目的为 [网市场云建站系统（CMS建站系统）](https://gitee.com/mail_osc/wangmarket) 因模版量少而做。用了之前写的 [xnx3](https://gitee.com/mail_osc/xnx3) ，以及 Jsoup 。
 <br/>
 <br/>
 ## 软件下载

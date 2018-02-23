@@ -116,7 +116,7 @@ public class MainUI extends JFrame {
 				String t = getTextArea_url().getText();
 				if(t.indexOf("请将要抓取") > -1){
 					if(UI.showConfirmDialog("提示：请先设定要抓取的URL<br/>是否查看帮助说明？") == UI.CONFIRM_YES){
-						SystemUtil.openUrl("https://note.youdao.com/share/?id=d6563c4fd545d06e07a861d195b98314#/");
+						SystemUtil.openUrl("http://www.wang.market/2712.html");
 					}
 					return;
 				}
@@ -131,6 +131,7 @@ public class MainUI extends JFrame {
 					return;
 				}
 				
+				Global.log("开始对输入网址检测...");
 				Global.logUI.setVisible(true);
 				getBtnNewButton_Start().setText("提取中..");
 				getBtnNewButton_Start().setEnabled(false);
@@ -165,6 +166,10 @@ public class MainUI extends JFrame {
 		JButton button = new JButton("日志");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(Global.logUI == null){
+					UI.showMessageDialog("工具尚未运行，暂无日志");
+					return;
+				}
 				Global.logUI.setVisible(true);
 			}
 		});
@@ -191,32 +196,32 @@ public class MainUI extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("作者：管雷鸣    微信公众号:wangmarket");
 		
-		JLabel lblNewLabel_1 = new JLabel("开源发布：github.com/xnx3/templatespider");
+		JLabel lblNewLabel_1 = new JLabel("开源发布 gitee.com/mail_osc/templatespider");
 		lblNewLabel_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SystemUtil.openUrl("https://github.com/xnx3/templatespider");
+				SystemUtil.openUrl("https://gitee.com/mail_osc/templatespider");
 			}
 		});
 		GroupLayout gl_panel_explain = new GroupLayout(panel_explain);
 		gl_panel_explain.setHorizontalGroup(
 			gl_panel_explain.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel_explain.createSequentialGroup()
+				.addGroup(Alignment.LEADING, gl_panel_explain.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_explain.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
-						.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
+						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel_explain.setVerticalGroup(
-			gl_panel_explain.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel_explain.createSequentialGroup()
+			gl_panel_explain.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_explain.createSequentialGroup()
 					.addContainerGap()
 					.addComponent(lblNewLabel)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(lblNewLabel_1)
-					.addContainerGap(201, Short.MAX_VALUE))
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
 		panel_explain.setLayout(gl_panel_explain);
 		

@@ -1,11 +1,5 @@
 package com.xnx3.spider;
 
-import org.jvnet.substance.border.StandardBorderPainter;
-import org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel;
-import org.jvnet.substance.theme.SubstanceCremeTheme;
-import org.jvnet.substance.watermark.SubstanceBubblesWatermark;
-
-import com.xnx3.UI;
 import com.xnx3.util.AutoRun;
 
 /**

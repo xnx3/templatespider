@@ -32,6 +32,9 @@ public class PageSpider {
 	private static final String CACHE_STRING = "_XNX3CACHE_";	//缓存特殊字符。只要缓存过的文件，替换时会加上这个。以免进行多次缓存
 	
 	public PageSpider(String url) {
+		if(url == null){
+			return;
+		}
 		this.url = url;
 		com.xnx3.spider.Global.log("开始抓取："+url);
 		try {
