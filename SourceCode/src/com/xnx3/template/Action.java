@@ -104,7 +104,16 @@ public class Action {
 			Template temp = entry.getValue();
 			
 			Document doc = temp.getDoc();
-			ResourceQuote rq = new ResourceQuote(Global.mainUI.getTextField_ResourceUrl().getText());
+			String baseUri = Global.mainUI.getTextField_ResourceUrl().getText();
+			if(baseUri == null){
+				UI.showMessageDialog("请先输入资源路径");
+				return;
+			}
+			if(baseUri.lastIndexOf("/")+1 == baseUri.length()){
+				baseUri = baseUri.substring(0, baseUri.length()-1);
+			}
+			
+			ResourceQuote rq = new ResourceQuote(baseUri);
 			doc = rq.tagReplace(doc, "img", "src");
 			doc = rq.tagReplace(doc, "link", "href");
 			doc = rq.tagReplace(doc, "script", "src");

@@ -24,7 +24,7 @@ public class Global {
 	}
 	
 	public static void log(String text){
-//		System.out.println(text);
+		System.out.println(text);
 		mainUI.getLblNewLabel_log().setText(text);
 	}
 	

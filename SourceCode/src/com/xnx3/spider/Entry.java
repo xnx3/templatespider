@@ -15,6 +15,7 @@ public class Entry {
 		
 		Global.mainUI.setVisible(true);
 		Global.mainUI.getTextArea_url().setText(Global.TEXTAREA_REMIND);
+		Global.mainUI.moreSetPanel_showAndHidden();
 		
 		AutoRun.versionCheck();//版本检测
 	}

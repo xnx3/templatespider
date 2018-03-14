@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,12 +13,8 @@ import org.jsoup.select.Elements;
 import com.xnx3.BaseVO;
 import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
-import com.xnx3.net.HttpResponse;
-import com.xnx3.net.HttpUtil;
 import com.xnx3.spider.vo.ResourceVO;
 import com.xnx3.template.Global;
-import com.xnx3.template.ResourceQuote;
-import com.xnx3.template.bean.Template;
 import com.xnx3.util.StringUtil;
 
 /**
@@ -31,6 +26,48 @@ public class PageSpider {
 	private Document doc;
 	private static final String CACHE_STRING = "_XNX3CACHE_";	//缓存特殊字符。只要缓存过的文件，替换时会加上这个。以免进行多次缓存
 	
+	
+	public static Map<String, String> cookiesMap = null;
+	/**
+	 * 设置抓取时附带的cookies，同时也是清除上一次运行时所全局缓存的cookies
+	 * @param cookies textarea中设置的文本内容
+	 */
+	public static void setCookiesMap(String cookies){
+		if(cookiesMap == null){
+			cookiesMap = new HashMap<String, String>();
+		}
+		cookiesMap.clear();//将上一次运行的cookies清空，如果本次运行设置了cookie，那么就设置上。如果没有设置，那么就让里面没有值好了
+		
+		if(cookies != null && cookies.length() > 1){
+			String cs[] = cookies.split(";");
+			for (int i = 0; i < cs.length; i++) {
+				String c = cs[i].trim();
+				if(c.length() > 0 || c.indexOf("=") > 0){
+					//成功，是cookie
+					String[] kvs = c.split("=");
+					if(kvs.length == 2){
+						String key = kvs[0].trim();
+						String value = kvs[1].trim();
+						if(key.length() > 0){
+							cookiesMap.put(key, value);
+						}
+					}
+				}
+			}
+			
+			Global.log("Cookies : ");
+			for(Map.Entry<String,String > entry:cookiesMap.entrySet()){
+				Global.log(entry.getKey() + "=" + entry.getValue());
+			}
+		}
+	}
+	
+	
+	//全局缓存的扒取网站的页面编码，由界面设定，点击开始提取时，缓存到此处.默认是utf-8
+	public static String encode = "UTF-8";
+	
+	
+	
 	public PageSpider(String url) {
 		if(url == null){
 			return;
@@ -38,7 +75,14 @@ public class PageSpider {
 		this.url = url;
 		com.xnx3.spider.Global.log("开始抓取："+url);
 		try {
-			doc = Jsoup.connect(this.url).get();
+			doc = Jsoup.connect(this.url).cookies(cookiesMap).get();
+			String en = getCharset(doc);
+			if(en != null && en.equalsIgnoreCase("UTF-8")){
+				encode = "UTF-8";
+			}else{
+				encode = en; 
+			}
+			com.xnx3.spider.Global.log("自动提取页面编码："+encode);
 			
 			String html = replaceResourceQuoteForHtml();
 			//当前html文件名字
@@ -53,12 +97,12 @@ public class PageSpider {
 			htmlName = beforeName+".html";
 			
 			try {
-				FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, "UTF-8");
+				FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, encode);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		} catch (IOException e) {
-			Global.log(e.getMessage()+" -- "+url);
+			com.xnx3.spider.Global.log(e.getMessage()+" -- "+url);
 			e.printStackTrace();
 		}
 		
@@ -77,26 +121,26 @@ public class PageSpider {
 			String url = ele.attr("abs:href");
 			if(url.length() > 3){
 				//找到地址了，将其下载
-				Resource res = new Resource(url);
-				
+				Resource res = new Resource(url, this.url, "");
+				if(res.getNetUrl() == null){
+					continue;
+				}
 				//判断是否缓存过
 				if(Cache.cacheMap.get(res.getNetUrl()) == null){
 					//未缓存过，那就进行缓存
-					HttpUtil http = new HttpUtil("UTF-8");
-					HttpResponse hr = http.get(res.getNetUrl());
-					if(hr.getContent() != null){
-						String cssText = http.get(res.getNetUrl()).getContent();
+					String cssText = com.xnx3.util.HttpUtil.getContent(res.getNetUrl());
+					if(cssText != null){
 						Cache.cacheMap.put(res.getNetUrl(), res);
 						cssText = replaceCss(cssText, StringUtil.getPathByUrl(res.getNetUrl()), "../images/");
 						try {
-							FileUtil.write(res.getLocalUrl(), cssText, "UTF-8");
+							FileUtil.write(res.getLocalUrl(), cssText, PageSpider.encode);
 						} catch (IOException e) {
-							System.out.println(res.getLocalUrl()+"--error");
+							com.xnx3.spider.Global.log("cache -- "+res.getLocalUrl()+"--error");
 							e.printStackTrace();
 						}
 					}else{
 						try {
-							FileUtil.write(res.getLocalUrl(), "/* not find url */", "UTF-8");
+							FileUtil.write(res.getLocalUrl(), "/* not find url */", PageSpider.encode);
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -118,7 +162,7 @@ public class PageSpider {
 			String url = ele.attr("abs:src");
 			if(url.length() > 3){
 				//找到地址了，将其下载
-				Resource res = new Resource(url);
+				Resource res = new Resource(url, this.url, "");
 				ResourceVO vo = Cache.addCache(res);
 				if(vo.getResult() - BaseVO.SUCCESS == 0){
 					//已经缓存过了，那么替换标签
@@ -135,7 +179,10 @@ public class PageSpider {
 			String url = ele.attr("abs:src");
 			if(url.length() > 3){
 				//找到地址了，将其下载
-				Resource res = new Resource(url);
+				Resource res = new Resource(url, this.url, "");
+				if(res.getNetUrl() == null){
+					continue;
+				}
 				ResourceVO vo = Cache.addCache(res);
 				if(vo.getResult() - BaseVO.SUCCESS == 0){
 					//已经缓存过了，那么替换标签
@@ -183,7 +230,10 @@ public class PageSpider {
 				String srcUrl = StringUtil.hierarchyReplace(uriPath, src);
 				if(srcUrl.indexOf(CACHE_STRING) == -1){
 					//如果没有缓存过，那才进行缓存
-					Resource res = new Resource(srcUrl);
+					Resource res = new Resource(srcUrl, thisUrl, "");
+					if(res.getNetUrl() == null){
+						continue;
+					}
 					ResourceVO vo = Cache.addCache(res);
 					if(vo.getResult() - BaseVO.SUCCESS == 0){
 						//将其进行替换为相对路径
@@ -198,5 +248,33 @@ public class PageSpider {
 		return cssText;
 	}
 
-	
+
+	/**
+	 * 若使用的utf-8编码，则统一返回 “UTF-8” ，若是其他编码，则会返回charset中设置的编码
+	 * @param doc
+	 * @return
+	 */
+	public static String getCharset(Document doc){
+		String defaultEncode = "UTF-8";
+		
+		Elements es = doc.getElementsByTag("meta");
+		for (int i = 0; i < es.size(); i++) {
+			Element ele = es.get(i);
+			String equiv = ele.attr("http-equiv");
+			if(equiv != null && equiv.equalsIgnoreCase("content-type")){
+				String content = ele.attr("content");
+				if(content == null){
+					return defaultEncode;
+				}
+				String cs[] = content.split(";");
+				for (int j = 0; j < cs.length; j++) {
+					String kvs[] = cs[j].split("=");
+					if(kvs[0].trim().equalsIgnoreCase("charset")){
+						return kvs[1].trim();
+					}
+				}
+			}
+		}
+		return defaultEncode;
+	}
 }

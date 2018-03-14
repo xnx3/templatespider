@@ -43,6 +43,11 @@ public class Cache {
 			vo.setResult(BaseVO.FAILURE);
 			return vo;
 		}
+		if(resource.getNetUrl().length() > 255){
+			//远程资源可能不是一个正常的url，可能是图片的base64存在，退出不缓存。因为本身就跟随其父文件进行了缓存了
+			vo.setResult(BaseVO.FAILURE);
+			return vo;
+		}
 		
 		//找cacheMap中是否缓存了
 		Resource cacheResource = cacheMap.get(resource.getNetUrl());
@@ -72,7 +77,6 @@ public class Cache {
 	 * 将 {@link #cacheMap} 缓存到本地磁盘，文件下载
 	 */
 	public static synchronized void downFile(Resource resource){
-		System.out.println(resource);
 		try {
 			FileUtil.downFiles(resource.getNetUrl(), resource.getLocalUrl());
 		}catch(java.io.FileNotFoundException notFind){

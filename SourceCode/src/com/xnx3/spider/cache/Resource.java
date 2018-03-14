@@ -1,7 +1,9 @@
 package com.xnx3.spider.cache;
 
+import com.xnx3.G;
 import com.xnx3.Lang;
 import com.xnx3.UI;
+import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
 import com.xnx3.spider.Global;
 import com.xnx3.util.StringUtil;
@@ -32,13 +34,30 @@ public class Resource {
 	/**
 	 * 传入绝对路径
 	 * @param url 网络资源的绝对路径
+	 * @param referrerUrl 来源的URL，即上级url，使用此资源的url
+	 * @param fudai 无效参数。。附带的
 	 */
-	public Resource(String url) {
+	public Resource(String url, String referrerUrl, String fudai) {
+		if(url.length() > 500){
+			return;
+		}
+		if(url.length() < 3){
+			return;
+		}
+		if(url.indexOf("//") == 0){
+			//如果这个url是 //www.baidu.com这样的网址，是以//开头的，那么补全协议
+			Global.log("补齐协议。原路径："+url);
+			url = UrlUtil.getProtocols(referrerUrl)+":"+url;
+		}
+		
 		this.netUrl = url;
 		this.originalUrl = url;
 		jisuanLocalFile();
 		com.xnx3.spider.Global.log(this.netUrl);
 	}
+	
+	
+	
 	
 	/**
 	 * @param refererPagePath 来源页面的路径所在。如 www.baidu.com/a/b/c.html 那么这里便是 www.baidu.com/a/b/ 此项的作用，是当 originalUrl 是相对路径时，进行自动补齐其路径
@@ -88,8 +107,8 @@ public class Resource {
 	public void jisuanLocalFile(){
 		
 //		String originalUrl = null;
-		if(this.netUrl.lastIndexOf("/") < 10){
-			UI.showMessageDialog("传入的资源路径请具体到某个文件，一定要带上某个文件的名字，不能只是域名。如加上 index.html");
+		if(this.netUrl.lastIndexOf("/") < 5){
+			Global.log("debug netUrl.lastIndexOf < 5, netUrl:"+this.netUrl);
 			return;
 		}else{
 			//保存到本地的文件
@@ -116,7 +135,7 @@ public class Resource {
 		}
 		if(type == null){
 			//判断是否是css后缀
-			String[] csss = {"css","woff2","woff","eot","ttf"};
+			String[] csss = {"css","woff2","woff","eot","ttf","otf"};
 			for (int i = 0; i < csss.length; i++) {
 				if(suffix.equalsIgnoreCase(csss[i])){
 					type = "css";
