@@ -3,7 +3,37 @@ package com.xnx3.util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.jsoup.nodes.Element;
+
 public class StringUtil {
+	public static int count = 0;	//对比次数
+
+	/**
+	 * 文章相似度对比。越相似，越接近1
+	 * @param str1
+	 * @param str2
+	 * @return 0~1
+	 */
+	public static double similarity(Element ele1, Element ele2){
+		//首先进行tag的对比。当前标签tag一致，才有可能整个代码块相同
+		String tag1 = ele1.tagName();
+		String tag2 = ele2.tagName();
+		if(tag1 != null && tag2 != null && tag1.equals(tag2)){
+			//tag相同，进而对比其class、id
+			
+			//对比id
+			if(ele1.attr("id").equals(ele2.attr("id"))){
+				
+				//对比class
+				if(ele1.attr("class").equals(ele2.attr("class"))){
+					return similarity_(ele1.toString(), ele2.toString());
+				}
+			}
+		}
+		return 0.1;
+		
+//		return similarity_(ele1.toString(), ele2.toString());
+	}
 	
 	/**
 	 * 文章相似度对比。越相似，越接近1
@@ -11,7 +41,7 @@ public class StringUtil {
 	 * @param str2
 	 * @return 0~1
 	 */
-	public static double similarity(String str1, String str2){
+	public static double similarity_(String str1, String str2){
 		str1 = purification(str1);
 		str2 = purification(str2);
 		if(str1.equals(str2)){
@@ -27,10 +57,20 @@ public class StringUtil {
 		}else{
 			d = i1 / i2;
 		}
-		if(d < 0.85 && i1 > 200){
-			//长度小于0.8，那几乎就不会相等了，返回个0.2吧
-			return 0.2;
+		if(i1 < 200 && d > 0.85){
+			//有希望相等
+		}else if(i1 < 1000 && d > 0.92){
+			//有那么点希望相等
+		}else if(i1 < 3000 && d > 0.94){
+			//有一丁点可能相等
+		}else if(i1 < 10000 && d > 0.95){
+			//相等很小，但有可能
+		}else{
+			//这里了直接判定就是不相等了，别浪费时间了，直接给0.2打发掉
+			return 0.1;
 		}
+		
+		count++;
 		
 //		if(Math.abs( / ) ){
 //			

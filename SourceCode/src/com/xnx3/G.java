@@ -8,7 +8,7 @@ public class G {
 	/**
 	 * 当前版本号
 	 */
-	public final static String VERSION = "1.2";
+	public final static String VERSION = "2.0";
 	
 	
 }

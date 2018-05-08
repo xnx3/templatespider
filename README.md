@@ -1,30 +1,36 @@
 # 所见网站，皆可为我所用－templatespider
-看好哪个网站，指定好URL，自动扒下来做成模版。并且所下载的css、js、图片、html文件会自动分好类保存到特定文件夹！
+看好哪个网站，指定好URL，自动扒下来做成 html模版。并且所下载的css、js、图片、html文件会自动分好类保存到特定文件夹！
+然后使用 模版计算工具，自动将 html模版计算合成为 [网市场云建站系统](https://gitee.com/mail_osc/wangmarket) 可用的模版。
 <br/>
 项目最初目的为 [网市场云建站系统（CMS建站系统）](https://gitee.com/mail_osc/wangmarket) 因模版量少而做。用了之前写的 [xnx3](https://gitee.com/mail_osc/xnx3) ，以及 Jsoup 。
 <br/>
 <br/>
 ## 软件下载
-不说没用的，不吹多牛，能直接用，产生价值才是真的！
-##### Windows 系统
-[点击此处下载 Windows平台 运行软件](https://github.com/xnx3/templatespider/raw/master/application/spider.zip) 软件下载后，解压即可直接使用！
+下载后解压，即可一键运行！
+[Windows系统](https://pan.baidu.com/s/1ragMZDxgqF39qrNoI2T4UA) | [Linux、Mac系统](https://pan.baidu.com/s/1SFXFj-Z716JPKCO-i6Dutw)
+
 <br/>
-##### Mac、Linux 系统
-[点击此处下载可运行jar包](https://github.com/xnx3/templatespider/raw/master/application/spider.jar)
-前提是需自行安装JDK8。jar下载后可直接打开运行。
-<br/>
-<br/>
+
 ## 项目分支简介
-1. 看着网上哪个网站好，可用此软件将其下载，变为模版，可以供网市场云建站、帝国CMS、织梦CMS等各大建站系统使用 [application/spider.zip](https://github.com/xnx3/templatespider/raw/master/application/spider.zip)<br/>
-2. 下载的模版，采用人工智能，自动进行计算识别，将其转化，导出网市场云建站可使用的模版，做到一键导入使用！（尚未完成）<br/>
+#### 扒网站工具
+![image](http://cdn.weiunity.com/site/254/news/20180126/1516934385872060782.png)
+看着网上哪个网站好，可用此软件将其下载，变为标准的 html 模版，自动分好图片、css、js、以及html页面。可以供网市场云建站、帝国CMS、织梦CMS等各大建站系统使用[查看更多说明及步骤示例](http://wang.market/2712.html)
+
+<br/>
+
+#### 模版计算工具
+![image](http://cdn.weiunity.com/site/341/news/0df0b61842104bfa8ab6c56500190468.png)
+将使用扒网站工具扒下来的html模版，或者网上自行下载的html模版、又或者你自己定制做的模版，导入进去。软件会自动帮您计算合成 网市场云建站系统 中可一键导入使用的模版（当然，您还是要微调的）[查看更多说明及步骤示例](http://wang.market/4234.html)
+
+
+<br/>
+
 
 ````
-templatespider                      GitHub目录
+templatespider                      目录
 ├─SourceCode                        项目源代码
 │  ├─lib                            依赖的 jar 包
 │  ├─src                            java 源码
-└─application                       可直接运行的应用(下载后可直接部署起来运行)
-  └─spider.zip                      扒网站工具的 Windows 应用程序
 ````
 
 

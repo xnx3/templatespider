@@ -234,7 +234,7 @@ public class TemplateCompute {
 			Element e = es.get(i);
 			
 			//进行对比
-			double d1 = com.xnx3.util.StringUtil.similarity(diff.toString(), e.toString());
+			double d1 = com.xnx3.util.StringUtil.similarity(diff, e);
 			if(d1 > vo.getD()){
 				vo.setD(d1);
 				vo.setTargetElement(e);

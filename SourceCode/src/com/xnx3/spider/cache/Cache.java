@@ -53,6 +53,10 @@ public class Cache {
 		Resource cacheResource = cacheMap.get(resource.getNetUrl());
 		if(cacheResource == null){
 			cacheResource = cacheMap.get(resource.getOriginalUrl());
+			if(cacheResource != null){
+				System.out.println("====12345====");
+				System.out.println("cacheResource-->"+cacheResource);
+			}
 		}
 		
 		//如果缓存中有，那么要将之前的缓存返回

@@ -14,6 +14,8 @@ public class RightMenu extends JFrame{
     	setBounds(100,100,350,150);
     	setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);  
+        
+        //加上功能后，再去掉下面注释
         this.init();  
         this.add(menu);  
     }

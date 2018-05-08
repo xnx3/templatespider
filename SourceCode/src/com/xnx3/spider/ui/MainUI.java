@@ -47,7 +47,6 @@ public class MainUI extends JFrame {
 	private boolean moreSetPanel_use = true;	//是否使用更多设置的面板显示。若为true，则是显示更多设置面板。这里主要用于记录当前是显示还是隐藏的，以便判断按下按钮后要显示还是隐藏。仅此而已
 	private JButton buttonMoreSet;
 	private JPanel panel_MoreSet;
-	private JComboBox comboBox_encode;
 	private JTextArea textArea_cooikes;
 
 	/**
@@ -137,21 +136,6 @@ public class MainUI extends JFrame {
 					.addContainerGap())
 		);
 		
-		JLabel lblNewLabel_2 = new JLabel("页面编码：");
-		lblNewLabel_2.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				UI.showMessageForMouse(e, 180, 50, "要扒取页面的页面编码");
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				UI.hiddenMessageForMouse();
-			}
-		});
-		
-		comboBox_encode = new JComboBox();
-		comboBox_encode.setModel(new DefaultComboBoxModel(new String[] {"UTF-8", "GBK"}));
-		
 		JLabel lblCookie = new JLabel("Cookies：");
 		lblCookie.addMouseListener(new MouseAdapter() {
 			@Override
@@ -165,34 +149,28 @@ public class MainUI extends JFrame {
 		});
 		
 		textArea_cooikes = new JTextArea();
+		textArea_cooikes.setLineWrap(true);
 		GroupLayout gl_panel_MoreSet = new GroupLayout(panel_MoreSet);
 		gl_panel_MoreSet.setHorizontalGroup(
 			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_MoreSet.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(lblCookie, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblNewLabel_2, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 78, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
-						.addComponent(comboBox_encode, GroupLayout.PREFERRED_SIZE, 94, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_panel_MoreSet.createSequentialGroup()
-							.addGap(6)
-							.addComponent(textArea_cooikes, GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)))
+					.addComponent(lblCookie)
+					.addGap(12)
+					.addComponent(textArea_cooikes, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_MoreSet.setVerticalGroup(
 			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_MoreSet.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblNewLabel_2)
-						.addComponent(comboBox_encode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.BASELINE)
-						.addComponent(lblCookie)
-						.addComponent(textArea_cooikes, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(26, Short.MAX_VALUE))
+					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel_MoreSet.createSequentialGroup()
+							.addGap(28)
+							.addComponent(lblCookie))
+						.addGroup(gl_panel_MoreSet.createSequentialGroup()
+							.addGap(8)
+							.addComponent(textArea_cooikes, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)))
+					.addContainerGap())
 		);
 		panel_MoreSet.setLayout(gl_panel_MoreSet);
 		
@@ -332,9 +310,7 @@ public class MainUI extends JFrame {
 	public JPanel getPanel_MoreSet() {
 		return panel_MoreSet;
 	}
-	public JComboBox getComboBox_encode() {
-		return comboBox_encode;
-	}
+
 	public JTextArea getTextArea_cooikes() {
 		return textArea_cooikes;
 	}

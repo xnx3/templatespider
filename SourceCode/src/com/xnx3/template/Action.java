@@ -354,6 +354,10 @@ public class Action {
 	 * @param templateVarVOMap 当前提取好的模版变量，要保存为模版的模版变量
 	 */
 	public static String templatePageReplaceVar(String tempaltePageName, Map<String, ElementDiffRecord> templateVarVOMap){
+		if(Global.templateMap.get(tempaltePageName) == null){
+			System.err.println("----------null------"+tempaltePageName);
+			return "";
+		}
 		Document doc = Jsoup.parse(Global.templateMap.get(tempaltePageName).getDoc().toString());
 		
 		//当前模版页面所使用的模版变量的名字。会在下面for中判断出
@@ -388,7 +392,7 @@ public class Action {
 				for (int i = 0; i < eles.size(); i++) {
 					Element e = eles.get(i);
 					
-					double s = StringUtil.similarity(e.toString(), varElement.toString());
+					double s = StringUtil.similarity(e, varElement);
 					if(s > Global.sim){
 						System.out.println("发现相同＝"+s+"＝"+varName+"＝＝＝＝"+e.toString().length());
 						haveVarNameList.add(varName);	//加入使用列表
@@ -535,5 +539,27 @@ public class Action {
 			}
 		}
 		return uiTN;
+	}
+	
+	/**
+	 * 显示当前最新的模版变量，将Global中存的模版变量显示到JTable中。也可以作为刷新使用
+	 */
+	public static void showUITemplateVarJTabel(){
+		Global.mainUI.getTemplateVarTableModel().setRowCount( 0 );
+		
+		for (Map.Entry<String, ElementDiffRecord> entry : Global.templateVarMap.entrySet()) {
+			ElementDiffRecord record = entry.getValue();
+			Vector rowData = new Vector();
+			int[] diff = Action.isPreviewDiff(record.getElementDiffListVO());
+			rowData.add(entry.getKey());
+			rowData.add(diff[0]);
+			rowData.add(diff[1]);
+			rowData.add("删除");
+			rowData.add(diff[1] > 0? "对比":"");
+			rowData.add("");
+			
+			Global.mainUI.getTemplateVarTableModel().insertRow(0, rowData);
+		}
+		
 	}
 }

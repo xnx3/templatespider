@@ -66,7 +66,7 @@ public class GainTemplateVar {
 					//总的，汇集起来的，Entry中的
 					ElementDiffRecord entryRecord = recordList.get(i);
 					//判断其相似程度，是否已经加入进总的record中了。
-					if(StringUtil.similarity(entryRecord.getElementDiffVO().getDiffElement().toString(), templateRecord.getElementDiffVO().getDiffElement().toString()) > Global.sim){
+					if(StringUtil.similarity(entryRecord.getElementDiffVO().getDiffElement(), templateRecord.getElementDiffVO().getDiffElement()) > Global.sim){
 						//已经加入进过，找到相似度大于 Global.sim 的，那么标注findSim，已经有相似的了
 						findSim = true;
 						break;
@@ -171,17 +171,21 @@ public class GainTemplateVar {
 			//将模版变量的结果保存
 			Global.templateVarMap.put(templateVarName, record);
 			
-			Vector rowData = new Vector();
-			int[] diff = Action.isPreviewDiff(record.getElementDiffListVO());
-			rowData.add(templateVarName);
-			rowData.add(diff[0]);
-			rowData.add(diff[1]);
-			rowData.add("删除");
-			rowData.add(diff[1] > 0? "对比":"");
-			rowData.add("");
-			
-			Global.mainUI.getTemplateVarTableModel().insertRow(0, rowData);
+			//下面交给Action.showUITemplateVarJTabel()
+//			Vector rowData = new Vector();
+//			int[] diff = Action.isPreviewDiff(record.getElementDiffListVO());
+//			rowData.add(templateVarName);
+//			rowData.add(diff[0]);
+//			rowData.add(diff[1]);
+//			rowData.add("删除");
+//			rowData.add(diff[1] > 0? "对比":"");
+//			rowData.add("");
+//			
+//			Global.mainUI.getTemplateVarTableModel().insertRow(0, rowData);
 		}
+		//刷新，到UI界面显示最新模版变量
+		Action.showUITemplateVarJTabel();
+		
 		Global.mainUI.getLblNewLabel_progress().setText("100%");
 //		for (int i = 0; i < Global.mainUI.getTemplateVarTableModel().getRowCount(); i++) {
 //			JCheckBox jcb = new JCheckBox("使用");

@@ -19,6 +19,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.TableModel;
 import javax.swing.JButton;
 
+import com.xnx3.SystemUtil;
 import com.xnx3.UI;
 import com.xnx3.template.Action;
 import com.xnx3.template.GainTemplateVar;
@@ -54,6 +55,7 @@ import javax.swing.JMenuItem;
 import java.awt.Font;
 
 import javax.swing.SwingConstants;
+import java.awt.Cursor;
 
 public class Main extends JFrame {
 
@@ -97,7 +99,7 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("主界面");
+		setTitle("模版计算工具  -  作者：管雷鸣");
 		setBounds(100, 100, 792, 430);
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -107,8 +109,13 @@ public class Main extends JFrame {
 		JMenu helpMenu = new JMenu("帮助");
 		menuBar.add(helpMenu);
 		
-		JMenuItem mntmNewMenuItem = new JMenuItem("New menu item");
+		JMenuItem mntmNewMenuItem = new JMenuItem("使用说明");
 		helpMenu.add(mntmNewMenuItem);
+		mntmNewMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://www.wang.market/4234.html");
+			}
+		});
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -148,18 +155,25 @@ public class Main extends JFrame {
 		);
 		
 		lblNewLabel_log = new JLabel("log");
+		lblNewLabel_log.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		lblNewLabel_log.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://www.wang.market/4234.html");
+			}
+		});
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "1.\u6587\u4EF6\u76F8\u5173", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "1. \u5BFC\u5165\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "2.\u8D44\u6E90\u8DEF\u5F84\u66FF\u6362", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "2. \u8D44\u6E90\u66FF\u6362", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(null, "\u5BFC\u51FA\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "4. \u5BFC\u51FA\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(null, "3.\u63D0\u53D6\u6A21\u7248\u53D8\u91CF", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "3. \u63D0\u53D6\u6A21\u7248\u53D8\u91CF", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		
 		lblNewLabel_progress = new JLabel("进度");
 		lblNewLabel_progress.setHorizontalAlignment(SwingConstants.CENTER);
@@ -376,15 +390,15 @@ public class Main extends JFrame {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				if(e.isPopupTrigger()){
-					JPopupMenu menu = new JPopupMenu();  
-					JMenuItem varItem = new JMenuItem("创建模版变量");
-					varItem.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							System.out.println(textArea.getSelectedText());
-						}
-					});
-					menu.add(varItem);
-					menu.show(textArea, e.getX(), e.getY());
+//					JPopupMenu menu = new JPopupMenu();  
+//					JMenuItem varItem = new JMenuItem("创建模版变量");
+//					varItem.addActionListener(new ActionListener() {
+//						public void actionPerformed(ActionEvent e) {
+//							System.out.println(textArea.getSelectedText());
+//						}
+//					});
+//					menu.add(varItem);
+//					menu.show(textArea, e.getX(), e.getY());
 				}
 			}
 		});
@@ -406,15 +420,23 @@ public class Main extends JFrame {
 			    }
 				if(getTemplateVarJTable().getSelectedColumn() == 3){
 					if(UI.showConfirmDialog("确定要删除［"+value+"］吗") == UI.CONFIRM_YES){
-						System.out.println("选择了删除");
+						System.out.println("选择了删除："+value);
 						getTemplateVarTableModel().removeRow(row);
 						//删除缓存的模版变量
 						Global.templateVarMap.remove(value);
+						//刷新，到UI界面显示最新模版变量
+						Action.showUITemplateVarJTabel();
 					}
 				}else if (getTemplateVarJTable().getSelectedColumn() == 4) {
 					Action.previewDiffUI(Global.templateVarMap.get(value).getElementDiffListVO());
 				}else{
-					getTextArea().setText(Global.templateVarMap.get(value).getElementDiffVO().getDiffElement().toString());
+					if(Global.templateVarMap.get(value) == null){
+						UI.showMessageDialog("该变量已被删除");
+						//刷新，到UI界面显示最新模版变量
+						Action.showUITemplateVarJTabel();
+					}else{
+						getTextArea().setText(Global.templateVarMap.get(value).getElementDiffVO().getDiffElement().toString());
+					}
 				}
 			}
 			
@@ -424,7 +446,11 @@ public class Main extends JFrame {
 			public void tableChanged(TableModelEvent e) {
 				if(e.getColumn() == 0){
 					String value = (String) templateVarTableModel.getValueAt(e.getFirstRow(), e.getColumn());
-					System.out.println("改变"+value);
+					//判断是否是修改了
+					if(lastClickTemplateVarName.equalsIgnoreCase(value)){
+						//未有修改
+						return;
+					}
 					
 					//找找是哪个模版变量没有了，那就是改动的了
 //					String oldVarName = "";	//旧的变量名字
@@ -454,6 +480,9 @@ public class Main extends JFrame {
 						//删除旧的模版变量
 						Global.templateVarMap.remove(lastClickTemplateVarName);
 						Global.log("更改模版变量名字："+lastClickTemplateVarName+" --> "+value);
+						
+						//刷新，到UI界面显示最新模版变量
+						Action.showUITemplateVarJTabel();
 					}
 					
 				}
