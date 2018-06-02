@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.awt.Toolkit;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.SwingConstants;
 
 public class MainUI extends JFrame {
 
@@ -71,7 +72,7 @@ public class MainUI extends JFrame {
 	public MainUI() {
 		setTitle("扒网站工具");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 543, 323);
+		setBounds(100, 100, 600, 400);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -117,26 +118,26 @@ public class MainUI extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 229, Short.MAX_VALUE)
+					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE))
-				.addComponent(panel_MoreSet, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE)
+					.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
+				.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)
+					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_MoreSet, GroupLayout.PREFERRED_SIZE, 81, GroupLayout.PREFERRED_SIZE)
+					.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-						.addComponent(panel_explain, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap())
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))
 		);
 		
 		JLabel lblCookie = new JLabel("Cookies：");
+		lblCookie.setHorizontalAlignment(SwingConstants.CENTER);
 		lblCookie.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
@@ -148,30 +149,32 @@ public class MainUI extends JFrame {
 			}
 		});
 		
-		textArea_cooikes = new JTextArea();
-		textArea_cooikes.setLineWrap(true);
+		JScrollPane scrollPane_1 = new JScrollPane();
 		GroupLayout gl_panel_MoreSet = new GroupLayout(panel_MoreSet);
 		gl_panel_MoreSet.setHorizontalGroup(
 			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_MoreSet.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblCookie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-					.addGap(12)
-					.addComponent(textArea_cooikes, GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
+					.addComponent(lblCookie, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
 					.addContainerGap())
 		);
 		gl_panel_MoreSet.setVerticalGroup(
 			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_MoreSet.createSequentialGroup()
+					.addContainerGap()
 					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_panel_MoreSet.createSequentialGroup()
-							.addGap(28)
-							.addComponent(lblCookie))
+							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
+							.addContainerGap())
 						.addGroup(gl_panel_MoreSet.createSequentialGroup()
-							.addGap(8)
-							.addComponent(textArea_cooikes, GroupLayout.DEFAULT_SIZE, 67, Short.MAX_VALUE)))
-					.addContainerGap())
+							.addComponent(lblCookie, GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+							.addGap(9))))
 		);
+		
+		textArea_cooikes = new JTextArea();
+		scrollPane_1.setViewportView(textArea_cooikes);
 		panel_MoreSet.setLayout(gl_panel_MoreSet);
 		
 		btnNewButton = new JButton("开始抓取");
@@ -271,22 +274,22 @@ public class MainUI extends JFrame {
 		});
 		GroupLayout gl_panel_explain = new GroupLayout(panel_explain);
 		gl_panel_explain.setHorizontalGroup(
-			gl_panel_explain.createParallelGroup(Alignment.TRAILING)
-				.addGroup(Alignment.LEADING, gl_panel_explain.createSequentialGroup()
+			gl_panel_explain.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_explain.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_explain.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 313, Short.MAX_VALUE)
-						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE))
+						.addComponent(lblNewLabel_1, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
+						.addComponent(lblNewLabel, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel_explain.setVerticalGroup(
 			gl_panel_explain.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_explain.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblNewLabel)
+					.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 16, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNewLabel_1)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(lblNewLabel_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+					.addContainerGap())
 		);
 		panel_explain.setLayout(gl_panel_explain);
 		
@@ -331,5 +334,4 @@ public class MainUI extends JFrame {
 			moreSetPanel_use = true;
 		}
 	} 
-	
 }
