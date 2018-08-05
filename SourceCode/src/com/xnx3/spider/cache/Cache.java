@@ -87,9 +87,13 @@ public class Cache {
 			Global.log("404 File Not Found !  "+resource.getNetUrl());
 		}catch(java.lang.NullPointerException nullE){
 			Global.log("downFile NULL----- "+resource.getNetUrl());
-		}catch (IOException e) {
+		}catch (Exception e) {
 			Global.log(e.getMessage()+" --- "+resource.getNetUrl());
 			e.printStackTrace();
 		}
+	}
+	
+	public static void main(String[] args) throws IOException {
+		FileUtil.downFiles("http://conference.cioe.cn/skin/gaofeng/js/js.js?version=2018/6/1%2020:20:17", "/images/js/a.js");
 	}
 }

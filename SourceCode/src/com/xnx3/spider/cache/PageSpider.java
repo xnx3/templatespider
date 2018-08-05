@@ -229,7 +229,7 @@ public class PageSpider {
 	 * @return 
 	 */
 	public static String replaceCss(String cssText, String thisUrl, String cacheFilePath){
-		String uriPath = StringUtil.getPathByUrl(thisUrl);	//当前的url的路径
+		String uriPath = UrlUtil.getPath(thisUrl);	//当前的url的路径
 		
 //		Pattern pattern = Pattern.compile("background[-image]*: *url\\('?\"?(.*?)'?\"?\\)");
 		Pattern pattern = Pattern.compile("url\\('?\"?(.*?)'?\"?\\)");

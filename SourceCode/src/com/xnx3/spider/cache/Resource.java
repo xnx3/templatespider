@@ -2,6 +2,7 @@ package com.xnx3.spider.cache;
 
 import com.xnx3.G;
 import com.xnx3.Lang;
+import com.xnx3.Log;
 import com.xnx3.UI;
 import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
@@ -49,14 +50,16 @@ public class Resource {
 			Global.log("补齐协议。原路径："+url);
 			url = UrlUtil.getProtocols(referrerUrl)+":"+url;
 		}
+		//如果url中包含空格，要将其变为 url 编码
+		if(url.indexOf(" ") > 0){
+			url = url.replaceAll(" ", "%20");
+		}
 		
 		this.netUrl = url;
 		this.originalUrl = url;
 		jisuanLocalFile();
 		com.xnx3.spider.Global.log(this.netUrl);
 	}
-	
-	
 	
 	
 	/**
@@ -112,7 +115,8 @@ public class Resource {
 			return;
 		}else{
 			//保存到本地的文件
-			this.localFile = StringUtil.getFileNameByUrl(this.netUrl);
+			this.localFile = UrlUtil.getFileName(this.netUrl);
+//					StringUtil.getFileNameByUrl(this.netUrl);
 		}
 
 		//判断资源类型，是html、css、js、image
