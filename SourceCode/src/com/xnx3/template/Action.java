@@ -315,6 +315,7 @@ public class Action {
 				map.put("type", type);
 				String tihuanmobanbianliangdepage = templatePageReplaceVar(name, templateVarVOMap);
 				map.put("text", exportTemplateStringDispose(tihuanmobanbianliangdepage));
+				map.put("editMode", "2");
 				templatePageList.add(map);
 				writeTemplateFile("page_"+templatePageName, tihuanmobanbianliangdepage);	//本地写出文件
 			}

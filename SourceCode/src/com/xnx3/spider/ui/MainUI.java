@@ -141,7 +141,7 @@ public class MainUI extends JFrame {
 		lblCookie.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				UI.showMessageForMouse(e, 300, 150, "扒取对方网站页面时，可设置一块提交的Cookies");
+				UI.showMessageForMouse(e, 350, 150, "扒取对方网站页面时，可设置一块提交的Cookies<br>比如，cookies有 a、b、c 三个参数，那么填入的格式为：a=1;b=2;c=3 多个参数用;分割");
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
@@ -174,6 +174,7 @@ public class MainUI extends JFrame {
 		);
 		
 		textArea_cooikes = new JTextArea();
+		textArea_cooikes.setLineWrap(true);
 		scrollPane_1.setViewportView(textArea_cooikes);
 		panel_MoreSet.setLayout(gl_panel_MoreSet);
 		
