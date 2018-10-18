@@ -107,6 +107,25 @@ public class MainUI extends JFrame {
 			}
 		});
 		
+		
+		JMenu siteMenu = new JMenu("建站");
+		menuBar.add(siteMenu);
+		
+		JMenuItem mianfeiMenuItem = new JMenuItem("免费开通网站");
+		siteMenu.add(mianfeiMenuItem);
+		mianfeiMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://wang.market/regByPhone.do?inviteid=50");
+			}
+		});
+		JMenuItem wscMenuItem = new JMenuItem("网市场云建站系统");
+		siteMenu.add(wscMenuItem);
+		wscMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://www.wang.market");
+			}
+		});
+		
 		JScrollPane scrollPane = new JScrollPane();
 		
 		JPanel panel = new JPanel();
