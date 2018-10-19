@@ -6,8 +6,8 @@
 <br/>
 <br/>
 ## 软件下载
-下载后解压，即可一键运行！<br/>
-[Windows系统](https://pan.baidu.com/s/1ragMZDxgqF39qrNoI2T4UA) | [Linux、Mac系统](https://pan.baidu.com/s/1SFXFj-Z716JPKCO-i6Dutw)
+支持Windows、Mac、Linux等系统。下载后解压，即可一键运行！<br/>
+[下载网址http://www.wang.market/4302.html](http://www.wang.market/4302.html)
 <br/>
 
 ## 项目分支简介
