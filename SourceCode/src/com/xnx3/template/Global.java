@@ -6,6 +6,7 @@ import java.util.Map;
 import com.xnx3.template.bean.ElementDiffRecord;
 import com.xnx3.template.bean.Template;
 import com.xnx3.template.ui.Main;
+import com.xnx3.template.ui.TemplateVarGainJframe;
 
 public class Global {
 	public final static String VERSION = "3.5";	//对应wang.market云建站的版本
@@ -17,8 +18,13 @@ public class Global {
 	
 	//主界面
 	public static Main mainUI;
+	//模版变量的高级设置
+	public static TemplateVarGainJframe templateVarGainJframe;
+	
 	static{
 		mainUI = new Main();
+		templateVarGainJframe = new TemplateVarGainJframe();
+		
 		templateVarMap = new HashMap<String, ElementDiffRecord>();
 		templateMap = new HashMap<String, Template>();
 	}

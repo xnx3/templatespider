@@ -19,7 +19,9 @@ public class Entry {
 		
 		Global.mainUI.setVisible(true);
 		Global.mainUI.getTextArea_url().setText(Global.TEXTAREA_REMIND);
+		//隐藏更多设置，也就是设置 request 参数的面板
 		Global.mainUI.moreSetPanel_showAndHidden();
+		
 		Global.mainUI.setBounds(30, 50, 600, 400);
 		
 		AutoRun.versionCheck();//版本检测

@@ -54,7 +54,6 @@ public class Cache {
 		if(cacheResource == null){
 			cacheResource = cacheMap.get(resource.getOriginalUrl());
 			if(cacheResource != null){
-				System.out.println("====12345====");
 				System.out.println("cacheResource-->"+cacheResource);
 			}
 		}
@@ -94,6 +93,6 @@ public class Cache {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		FileUtil.downFiles("http://conference.cioe.cn/skin/gaofeng/js/js.js?version=2018/6/1%2020:20:17", "/images/js/a.js");
+		FileUtil.downFiles("http://www.xingyucjb.com/Public/Wap/images/b4.png", "/images/js/b4.png");
 	}
 }

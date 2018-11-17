@@ -22,9 +22,11 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import com.xnx3.DateUtil;
+import com.xnx3.Lang;
 import com.xnx3.UI;
 import com.xnx3.exception.NotReturnValueException;
 import com.xnx3.file.FileUtil;
+import com.xnx3.template.Global;
 import com.xnx3.template.bean.ElementDiffRecord;
 import com.xnx3.template.bean.Template;
 import com.xnx3.template.ui.Diff;
@@ -104,7 +106,7 @@ public class Action {
 			Template temp = entry.getValue();
 			
 			Document doc = temp.getDoc();
-			String baseUri = Global.mainUI.getTextField_ResourceUrl().getText();
+			String baseUri = Global.mainUI.getTextArea_ResourceUrl().getText().trim();
 			if(baseUri == null){
 				UI.showMessageDialog("请先输入资源路径");
 				return;
@@ -333,6 +335,12 @@ public class Action {
 		
 		//将.wscso模版文件保存到当前项目文件夹
 		FileUtil.write(Global.getAppPath()+getTemplatePathName()+"/template.wscso", jo.toString());
+		
+		try {
+			java.awt.Desktop.getDesktop().open(new File(Global.getAppPath()+getTemplatePathName()+"/"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
@@ -372,6 +380,7 @@ public class Action {
 			
 			for (int i = 0; i < record.getElementDiffListVO().getList().size(); i++) {
 				ElementDiffVO edVO = record.getElementDiffListVO().getList().get(i);
+				
 				if(edVO.getTargetFile().getName().equals(tempaltePageName)){
 					//针对遍历的某个变量，找到其在 tempaltePageName 这个模版页面中的记录。当然， 若找不到记录，那就是这个模版页面没有使用这个变量，忽略即可
 					if(edVO.getD() >= Global.sim){
@@ -402,16 +411,7 @@ public class Action {
 						e.remove(); //将当前找到的元素删除掉
 					}
 				}
-//				
-//				
-//				int find = html.indexOf(varElement.toString());
-//				System.out.println("-----------");
-//				System.out.println(find+"->"+com.xnx3.StringUtil.removeBlank(varElement.toString()));
-//				if(find > -1){
-//					html = html.replace(varElement.toString(), " {include="+entry.getKey()+"} ");
-//				}else{
-//					System.out.println(varElement.toString().length()+",  "+diffVO.getTargetElement().toString().length());
-//				}
+
 			}
 		}
 		
@@ -563,4 +563,53 @@ public class Action {
 		}
 		
 	}
+	
+	/**
+	 * 第3步，提取模版变量，对提取的模版变量进行过滤，如过滤其字符串长度、相似度文件占的比例
+	 */
+	public static void templateVarListFilter(){
+		//得到模版变量过滤的最长字符数
+		int len = Lang.stringToInt(Global.templateVarGainJframe.getVarTextLengthtextField().getText(), 0);
+		System.out.println("len -- >"+len);
+		
+		//相似度百分比，不过这里是整数， 如相似度70%，这里的数字是 70
+		int percent = Lang.stringToInt(Global.templateVarGainJframe.getXiangsiduPercentTextField().getText(), 0);
+		
+		/*
+		 * 进行筛选
+		 */
+		//要删除的列表。 item： map.key
+		List<String> removeMapList = new ArrayList<String>();
+		//从map中找到要删除的key，放入list
+		for (Map.Entry<String, ElementDiffRecord> entry : Global.templateVarMap.entrySet()) {
+			ElementDiffRecord record = entry.getValue();
+			
+			//进行长度筛选
+			String html = record.getElementDiffVO().getDiffElement().html();
+			System.out.println("---------html---------"+html);
+			if(html.length() < len){
+				removeMapList.add(entry.getKey());
+			}
+			
+			//进行相似度筛选
+			int[] diff = Action.isPreviewDiff(record.getElementDiffListVO());
+			int findNum = diff[0]+diff[1];	//发现相同的条数，等于 完全相同的数量+相似度达标的数量
+			double baifenbi= Math.ceil(findNum*100/Global.templateMap.size());
+			System.out.println("模版变量数目："+Global.templateMap.size()+", 相同条数："+findNum+", 相似度达标的条数，占模版页面总条数的百分比："+baifenbi);
+			if(baifenbi < percent){
+				//百分比跟模版变量-高级设置中的百分比还小，那么舍弃，删除（过滤掉）这个模版变量
+				removeMapList.add(entry.getKey());
+				System.out.println("----------删除掉这个模版变量："+record);
+			}
+			
+		}
+		//从map中删除
+		for (int i = 0; i < removeMapList.size(); i++) {
+			Global.templateVarMap.remove(removeMapList.get(i));
+		}
+		
+		Global.log("模版变量提取完毕！");
+		showUITemplateVarJTabel();
+	}
+	
 }

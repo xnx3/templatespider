@@ -5,18 +5,18 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import org.apache.commons.collections.functors.ForClosure;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-
 import com.xnx3.BaseVO;
 import com.xnx3.Lang;
 import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
+import com.xnx3.spider.Global;
+import com.xnx3.spider.bean.RequestParamBean;
 import com.xnx3.spider.vo.ResourceVO;
-import com.xnx3.template.Global;
 import com.xnx3.util.StringUtil;
 
 /**
@@ -28,42 +28,70 @@ public class PageSpider {
 	private Document doc;
 	private static final String CACHE_STRING = "_XNX3CACHE_";	//缓存特殊字符。只要缓存过的文件，替换时会加上这个。以免进行多次缓存
 	
+	/**
+	 * 界面中设定的一些参数
+	 */
+	public static RequestParamBean requestParamBean;
+	/**
+	 * 将界面上设置的request的参数加入内存
+	 */
+	public static void setRequestParamBean(){
+		requestParamBean = new RequestParamBean();
+		requestParamBean.setUserAgent(Global.mainUI.getUserAgent().getText());
+		requestParamBean.setCookies(Global.mainUI.getTextArea_cooikes().getText());
+	}
 	
-	public static Map<String, String> cookiesMap = null;
+	public static void main(String[] args) {
+//		PageSpider.setRequestHeadersCookies("PHPSESSID=d4sdrubbnu2902n8ep14552pi4; Hm_lvt_8432b140808b28edfb25dc2e4d795a1b=1541922897; nb-referrer-hostname=www.xingyucjb.com; nb-start-page-url=http%3A%2F%2Fwww.xingyucjb.com%2F; Hm_lpvt_8432b140808b28edfb25dc2e4d795a1b=1541923230");
+//		PageSpider ps = new PageSpider("http://www.xingyucjb.com/");
+		
+	}
+	
+	//请求页面带过去的 cookies
+//	private static Map<String, String> cookiesMap = null;
 	/**
 	 * 设置抓取时附带的cookies，同时也是清除上一次运行时所全局缓存的cookies
 	 * @param cookies textarea中设置的文本内容
 	 */
-	public static void setCookiesMap(String cookies){
-		if(cookiesMap == null){
-			cookiesMap = new HashMap<String, String>();
-		}
-		cookiesMap.clear();//将上一次运行的cookies清空，如果本次运行设置了cookie，那么就设置上。如果没有设置，那么就让里面没有值好了
-		
-		if(cookies != null && cookies.length() > 1){
-			String cs[] = cookies.split(";");
-			for (int i = 0; i < cs.length; i++) {
-				String c = cs[i].trim();
-				if(c.length() > 0 || c.indexOf("=") > 0){
-					//成功，是cookie
-					String[] kvs = c.split("=");
-					if(kvs.length == 2){
-						String key = kvs[0].trim();
-						String value = kvs[1].trim();
-						if(key.length() > 0){
-							cookiesMap.put(key, value);
-						}
-					}
-				}
-			}
-			
-			Global.log("Cookies : ");
-			for(Map.Entry<String,String > entry:cookiesMap.entrySet()){
-				Global.log(entry.getKey() + "=" + entry.getValue());
-			}
-		}
-	}
+//	public static void setRequestHeadersCookies(String cookies){
+//		if(cookiesMap == null){
+//			cookiesMap = new HashMap<String, String>();
+//		}
+//		cookiesMap.clear();//将上一次运行的cookies清空，如果本次运行设置了cookie，那么就设置上。如果没有设置，那么就让里面没有值好了
+//		
+//		if(cookies != null && cookies.length() > 1){
+//			String cs[] = cookies.split(";");
+//			for (int i = 0; i < cs.length; i++) {
+//				String c = cs[i].trim();
+//				if(c.length() > 0 || c.indexOf("=") > 0){
+//					//成功，是cookie
+//					String[] kvs = c.split("=");
+//					if(kvs.length == 2){
+//						String key = kvs[0].trim();
+//						String value = kvs[1].trim();
+//						if(key.length() > 0){
+//							cookiesMap.put(key, value);
+//						}
+//					}
+//				}
+//			}
+//			
+//			Global.log("Cookies : ");
+//			for(Map.Entry<String,String > entry:cookiesMap.entrySet()){
+//				Global.log(entry.getKey() + "=" + entry.getValue());
+//			}
+//		}
+//	}
 	
+	//请求页面带过去的 user-agent
+//	private static String userAgent = "";
+	/**
+	 * 请求页面带过去的 user-agent
+	 * @param requestUserAgent 这里便是请求时要带的  user-agent
+	 */
+//	public static void setRequestHeadersUserAgent(String requestUserAgent){
+//		userAgent = requestUserAgent;
+//	}
 	
 	//全局缓存的扒取网站的页面编码，由界面设定，点击开始提取时，缓存到此处.默认是utf-8
 	public static String encode = "UTF-8";
@@ -77,7 +105,17 @@ public class PageSpider {
 		this.url = url;
 		com.xnx3.spider.Global.log("开始抓取："+url);
 		try {
-			doc = Jsoup.connect(this.url).cookies(cookiesMap).get();
+//			doc = Jsoup.connect(this.url).cookies(cookiesMap).userAgent(userAgent).get();
+			
+			Map<String, String> headersMap = new HashMap<String, String>();
+			if(requestParamBean.getCookies() != null && requestParamBean.getCookies().length() > 2){
+				headersMap.put("Cookie", requestParamBean.getCookies());
+			}
+			if(requestParamBean.getUserAgent() != null && requestParamBean.getUserAgent().length() > 2){
+				headersMap.put("User-Agent", requestParamBean.getUserAgent());
+			}
+			
+			doc = Jsoup.connect(this.url).headers(headersMap).get();
 			String en = getCharset(doc);
 			if(en != null && en.equalsIgnoreCase("UTF-8")){
 				encode = "UTF-8";

@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -56,6 +58,9 @@ import java.awt.Font;
 
 import javax.swing.SwingConstants;
 import java.awt.Cursor;
+import java.awt.Color;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class Main extends JFrame {
 
@@ -74,10 +79,9 @@ public class Main extends JFrame {
 	private JButton btnNewButton_run;
 	private JTextArea textArea;
 	private JLabel lblNewLabel_log;
-	private JTextField textField;
-	private JTextField textField_sim;
 	private JTextField textField_templateName;
 	private JLabel lblNewLabel_progress;
+	private JTextArea textArea_ResourceUrl;
 
 	/**
 	 * Launch the application.
@@ -101,7 +105,7 @@ public class Main extends JFrame {
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("模版计算工具  -  作者：管雷鸣");
-		setBounds(100, 100, 792, 557);
+		setBounds(100, 100, 1074, 617);
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -114,9 +118,11 @@ public class Main extends JFrame {
 		helpMenu.add(mntmNewMenuItem);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				SystemUtil.openUrl("http://www.wang.market/4234.html");
+				SystemUtil.openUrl("http://tag.wscso.com/4647.html");
 			}
 		});
+		
+		menuBar.add(Menu.wangmarketMenu());
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -131,20 +137,20 @@ public class Main extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(editPanel, GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
-						.addComponent(panel_1, GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(editPanel, GroupLayout.DEFAULT_SIZE, 764, Short.MAX_VALUE)
+						.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 764, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE))
+					.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 254, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(0)
-					.addComponent(editPanel, GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+					.addContainerGap()
+					.addComponent(editPanel, GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 218, GroupLayout.PREFERRED_SIZE))
-				.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 503, Short.MAX_VALUE)
+					.addComponent(panel_1, GroupLayout.PREFERRED_SIZE, 266, GroupLayout.PREFERRED_SIZE))
+				.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
 		);
 		
 		scrollPane = new JScrollPane();
@@ -223,76 +229,107 @@ public class Main extends JFrame {
 		lblNewLabel_log.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				SystemUtil.openUrl("http://www.wang.market/4234.html");
+				SystemUtil.openUrl("http://tag.wscso.com/4647.html");
 			}
 		});
 		
 		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "1. \u5BFC\u5165\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "2. \u5BFC\u5165\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JPanel panel_2 = new JPanel();
-		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "2. \u8D44\u6E90\u66FF\u6362", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "3. \u8D44\u6E90\u66FF\u6362", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JPanel panel_3 = new JPanel();
-		panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "4. \u5BFC\u51FA\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_3.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "5. \u5BFC\u51FA\u6A21\u7248", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		JPanel panel_4 = new JPanel();
-		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "3. \u63D0\u53D6\u6A21\u7248\u53D8\u91CF", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_4.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "4. \u63D0\u53D6\u6A21\u7248\u53D8\u91CF", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
 		
 		lblNewLabel_progress = new JLabel("进度");
 		lblNewLabel_progress.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_progress.setToolTipText("显示模版变量计算的进度");
 		lblNewLabel_progress.setFont(new Font("Lucida Grande", Font.BOLD, 17));
+		
+		JPanel panel_5 = new JPanel();
+		panel_5.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, null, null), "1. \u9009\u62E9\u5EFA\u7AD9\u7CFB\u7EDF", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"网市场云建站系统"}));
+		
+		JLabel label_1 = new JLabel("帮助说明");
+		label_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8139.html");
+			}
+		});
+		label_1.setForeground(Color.BLUE);
+		label_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		GroupLayout gl_panel_5 = new GroupLayout(panel_5);
+		gl_panel_5.setHorizontalGroup(
+			gl_panel_5.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel_5.createSequentialGroup()
+					.addGroup(gl_panel_5.createParallelGroup(Alignment.TRAILING)
+						.addGroup(gl_panel_5.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+						.addComponent(comboBox, 0, 117, Short.MAX_VALUE))
+					.addContainerGap())
+		);
+		gl_panel_5.setVerticalGroup(
+			gl_panel_5.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_5.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(comboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+					.addComponent(label_1)
+					.addContainerGap())
+		);
+		panel_5.setLayout(gl_panel_5);
 		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
 		gl_panel_1.setHorizontalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblNewLabel_log, GroupLayout.DEFAULT_SIZE, 406, Short.MAX_VALUE)
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 121, Short.MAX_VALUE)
+							.addComponent(panel_5, GroupLayout.DEFAULT_SIZE, 135, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 133, Short.MAX_VALUE)
+							.addComponent(panel, GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
+							.addComponent(panel_2, GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_4, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE))
 						.addGroup(gl_panel_1.createSequentialGroup()
-							.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 119, Short.MAX_VALUE)
-							.addGap(1))
-						.addComponent(lblNewLabel_progress, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 120, GroupLayout.PREFERRED_SIZE))
-					.addGap(5))
+							.addComponent(lblNewLabel_log, GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(lblNewLabel_progress, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
+					.addGap(0))
 		);
 		gl_panel_1.setVerticalGroup(
 			gl_panel_1.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_1.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 147, Short.MAX_VALUE)
-							.addComponent(panel_3, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 147, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_panel_1.createParallelGroup(Alignment.LEADING, false)
-						.addComponent(lblNewLabel_progress, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblNewLabel_log, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE))
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.BASELINE, false)
+						.addComponent(panel_5, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_3, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_4, GroupLayout.PREFERRED_SIZE, 219, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+					.addGroup(gl_panel_1.createParallelGroup(Alignment.TRAILING, false)
+						.addComponent(lblNewLabel_progress, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(lblNewLabel_log, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
 					.addContainerGap())
 		);
-		
-		JLabel label_1 = new JLabel("相似度：");
-		
-		textField_sim = new JTextField();
-		textField_sim.setToolTipText("提取模版变量的相似度识别，取值0～1之间。数值越大，识别精确度越高");
-		textField_sim.setText("0.98");
-		textField_sim.setColumns(10);
 		
 		btnNewButton_run = new JButton("开始提取");
 		btnNewButton_run.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//相似度赋值
-				Global.sim = Double.valueOf(getTextField_sim().getText()).doubleValue();
+				Global.sim = Double.valueOf(Global.templateVarGainJframe.getTextField_sim().getText()).doubleValue();
 				
 				//将现有的模版变量清空掉
 				Global.templateVarMap.clear();	//清理内存数据
@@ -303,34 +340,54 @@ public class Main extends JFrame {
 					@Override
 					public void run() {
 						GainTemplateVar.start();
+						
+						//提取完毕之后，进行自动过滤
+						Global.log("提取完毕，进行过滤");
+						Action.templateVarListFilter();
 					}
 				}).start();
 				getBtnNewButton_run().setText("自动提取中...");
 			}
 		});
+		
+		JButton button_3 = new JButton("过滤条件设定");
+		button_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Global.templateVarGainJframe.setVisible(true);
+			}
+		});
+		
+		JLabel label_4 = new JLabel("帮助说明");
+		label_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8142.html");
+			}
+		});
+		label_4.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label_4.setForeground(Color.BLUE);
+		
 		GroupLayout gl_panel_4 = new GroupLayout(panel_4);
 		gl_panel_4.setHorizontalGroup(
-			gl_panel_4.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_4.createSequentialGroup()
+			gl_panel_4.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.TRAILING)
-						.addComponent(btnNewButton_run, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
-						.addGroup(gl_panel_4.createSequentialGroup()
-							.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_sim, GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)))
+					.addGroup(gl_panel_4.createParallelGroup(Alignment.LEADING)
+						.addComponent(button_3, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+						.addComponent(btnNewButton_run, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+						.addComponent(label_4, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
 					.addContainerGap())
 		);
 		gl_panel_4.setVerticalGroup(
 			gl_panel_4.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_4.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(gl_panel_4.createParallelGroup(Alignment.BASELINE, false)
-						.addComponent(label_1, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_sim, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE))
+					.addComponent(button_3, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton_run, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addGap(40))
+					.addGap(78)
+					.addComponent(label_4)
+					.addContainerGap())
 		);
 		panel_4.setLayout(gl_panel_4);
 		
@@ -345,20 +402,27 @@ public class Main extends JFrame {
 		});
 		
 		JLabel label = new JLabel("模版名字：");
+		
+		JLabel label_5 = new JLabel("帮助说明");
+		label_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8143.html");
+			}
+		});
+		label_5.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label_5.setForeground(Color.BLUE);
 		GroupLayout gl_panel_3 = new GroupLayout(panel_3);
 		gl_panel_3.setHorizontalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel_3.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_3.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_3.createSequentialGroup()
-							.addComponent(button, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(Alignment.TRAILING, gl_panel_3.createSequentialGroup()
-							.addGroup(gl_panel_3.createParallelGroup(Alignment.TRAILING)
-								.addComponent(label, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-								.addComponent(textField_templateName, GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE))
-							.addContainerGap())))
+						.addComponent(button, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+						.addComponent(label, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+						.addComponent(textField_templateName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 128, Short.MAX_VALUE)
+						.addComponent(label_5, Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE))
+					.addContainerGap())
 		);
 		gl_panel_3.setVerticalGroup(
 			gl_panel_3.createParallelGroup(Alignment.LEADING)
@@ -368,52 +432,73 @@ public class Main extends JFrame {
 					.addComponent(textField_templateName, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(button, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(12, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+					.addComponent(label_5)
+					.addContainerGap())
 		);
 		panel_3.setLayout(gl_panel_3);
-		
-		textField = new JTextField();
-		textField.setToolTipText("资源文件在网上的绝对路径。一般都会将资源进行CDN加速");
-		textField.setColumns(10);
 		
 		JButton btnNewButton = new JButton("替换");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//动态标签替换，如title等
+				Action.replaceDongtaiTag();
+				//将js、css的相对路径变为绝对路径
 				Action.replaceResourceQuote();
 			}
 		});
 		
-		JButton button_1 = new JButton("动态标签替换");
-		button_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Action.replaceDongtaiTag();
+		JLabel lblNewLabel = new JLabel("请设置资源路径");
+		
+		JLabel label_3 = new JLabel("帮助说明");
+		label_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8141.html");
 			}
 		});
+		label_3.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label_3.setForeground(Color.BLUE);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
 		GroupLayout gl_panel_2 = new GroupLayout(panel_2);
 		gl_panel_2.setHorizontalGroup(
 			gl_panel_2.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_2.createSequentialGroup()
-					.addGroup(gl_panel_2.createParallelGroup(Alignment.TRAILING)
-						.addComponent(textField, 0, 0, Short.MAX_VALUE)
-						.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 116, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, gl_panel_2.createSequentialGroup()
-							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
-							.addGap(2)))
-					.addGap(5))
+					.addGroup(gl_panel_2.createParallelGroup(Alignment.LEADING)
+						.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+							.addContainerGap()
+							.addComponent(lblNewLabel, GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+							.addGap(1)
+							.addComponent(btnNewButton, GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE))
+						.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
+							.addContainerGap(75, Short.MAX_VALUE)
+							.addComponent(label_3, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+				.addComponent(scrollPane_3, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
 		);
 		gl_panel_2.setVerticalGroup(
 			gl_panel_2.createParallelGroup(Alignment.LEADING)
-				.addGroup(Alignment.TRAILING, gl_panel_2.createSequentialGroup()
-					.addComponent(textField, GroupLayout.PREFERRED_SIZE, 36, GroupLayout.PREFERRED_SIZE)
+				.addGroup(gl_panel_2.createSequentialGroup()
+					.addContainerGap()
+					.addComponent(lblNewLabel)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(scrollPane_3, GroupLayout.PREFERRED_SIZE, 92, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(btnNewButton, GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap())
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(label_3)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 		);
+		
+		textArea_ResourceUrl = new JTextArea();
+		scrollPane_3.setViewportView(textArea_ResourceUrl);
+		textArea_ResourceUrl.setToolTipText("请输入url");
+		textArea_ResourceUrl.setLineWrap(true);
 		panel_2.setLayout(gl_panel_2);
 		
-		JButton button_2 = new JButton("导入模版");
+		JButton button_2 = new JButton("导入");
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser jfc = new JFileChooser();// 文件选择器  
@@ -431,19 +516,35 @@ public class Main extends JFrame {
 				
 			}
 		});
+		
+		JLabel label_2 = new JLabel("帮助说明");
+		label_2.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8140.html");
+			}
+		});
+		label_2.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		label_2.setForeground(Color.BLUE);
 		GroupLayout gl_panel = new GroupLayout(panel);
 		gl_panel.setHorizontalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
-					.addComponent(button_2, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
+					.addComponent(button_2, GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
+					.addGap(3))
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addContainerGap(54, Short.MAX_VALUE)
+					.addComponent(label_2, GroupLayout.PREFERRED_SIZE, 67, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap())
 		);
 		gl_panel.setVerticalGroup(
 			gl_panel.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_panel.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(button_2, GroupLayout.PREFERRED_SIZE, 43, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(82, Short.MAX_VALUE))
+					.addComponent(button_2)
+					.addPreferredGap(ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
+					.addComponent(label_2)
+					.addContainerGap())
 		);
 		panel.setLayout(gl_panel);
 		panel_1.setLayout(gl_panel_1);
@@ -607,16 +708,14 @@ public class Main extends JFrame {
 	public JLabel getLblNewLabel_log() {
 		return lblNewLabel_log;
 	}
-	public JTextField getTextField_ResourceUrl() {
-		return textField;
-	}
-	public JTextField getTextField_sim() {
-		return textField_sim;
-	}
+	
 	public JTextField getTextField_templateName() {
 		return textField_templateName;
 	}
 	public JLabel getLblNewLabel_progress() {
 		return lblNewLabel_progress;
+	}
+	public JTextArea getTextArea_ResourceUrl() {
+		return textArea_ResourceUrl;
 	}
 }

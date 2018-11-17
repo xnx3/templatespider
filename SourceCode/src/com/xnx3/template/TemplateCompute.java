@@ -29,7 +29,7 @@ import com.xnx3.util.StringDiff;
  * @author 管雷鸣
  */
 public class TemplateCompute {
-	private Template template;	//当前操作的模板
+	private Template template;	//当前操作的模板页面
 	
 //	public static List<Template> templateList;
 //	public static Map<String, Template> templateMap;

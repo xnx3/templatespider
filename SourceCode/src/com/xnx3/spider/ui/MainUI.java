@@ -38,6 +38,7 @@ import java.awt.Toolkit;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.SwingConstants;
+import javax.swing.border.TitledBorder;
 
 public class MainUI extends JFrame {
 
@@ -49,6 +50,7 @@ public class MainUI extends JFrame {
 	private JButton buttonMoreSet;
 	private JPanel panel_MoreSet;
 	private JTextArea textArea_cooikes;
+	private JTextArea userAgent;
 
 	/**
 	 * Launch the application.
@@ -72,7 +74,7 @@ public class MainUI extends JFrame {
 	public MainUI() {
 		setTitle("扒网站工具");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 600, 400);
+		setBounds(100, 100, 932, 670);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -108,23 +110,8 @@ public class MainUI extends JFrame {
 		});
 		
 		
-		JMenu siteMenu = new JMenu("建站");
-		menuBar.add(siteMenu);
+		menuBar.add(Menu.wangmarketMenu());
 		
-		JMenuItem mianfeiMenuItem = new JMenuItem("免费开通网站");
-		siteMenu.add(mianfeiMenuItem);
-		mianfeiMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SystemUtil.openUrl("http://wang.market/regByPhone.do?inviteid=50");
-			}
-		});
-		JMenuItem wscMenuItem = new JMenuItem("网市场云建站系统");
-		siteMenu.add(wscMenuItem);
-		wscMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				SystemUtil.openUrl("http://www.wang.market");
-			}
-		});
 		
 		JScrollPane scrollPane = new JScrollPane();
 		
@@ -133,26 +120,30 @@ public class MainUI extends JFrame {
 		panel_explain = new JPanel();
 		
 		panel_MoreSet = new JPanel();
+		panel_MoreSet.setBorder(new TitledBorder(null, "Request Headers", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.TRAILING)
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(panel, GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, 296, Short.MAX_VALUE))
-				.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
-				.addComponent(scrollPane, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)
+						.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, 572, Short.MAX_VALUE)))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
+					.addGap(2)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 540, Short.MAX_VALUE)
+						.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 538, Short.MAX_VALUE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(panel_MoreSet, GroupLayout.DEFAULT_SIZE, 72, Short.MAX_VALUE)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
-						.addComponent(panel_explain, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(panel, GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)))
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(panel, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)
+						.addComponent(panel_explain, GroupLayout.PREFERRED_SIZE, 68, GroupLayout.PREFERRED_SIZE)))
 		);
 		
 		JLabel lblCookie = new JLabel("Cookies：");
@@ -169,28 +160,43 @@ public class MainUI extends JFrame {
 		});
 		
 		JScrollPane scrollPane_1 = new JScrollPane();
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		
+		JLabel lblUseragent = new JLabel("User-Agent：");
+		lblUseragent.setHorizontalAlignment(SwingConstants.CENTER);
 		GroupLayout gl_panel_MoreSet = new GroupLayout(panel_MoreSet);
 		gl_panel_MoreSet.setHorizontalGroup(
 			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_MoreSet.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_panel_MoreSet.createSequentialGroup()
 					.addContainerGap()
-					.addComponent(lblCookie, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
+						.addComponent(lblCookie, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblUseragent, GroupLayout.PREFERRED_SIZE, 113, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.TRAILING)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE)
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 459, Short.MAX_VALUE))
 					.addContainerGap())
 		);
 		gl_panel_MoreSet.setVerticalGroup(
-			gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
+			gl_panel_MoreSet.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_panel_MoreSet.createSequentialGroup()
 					.addContainerGap()
 					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel_MoreSet.createSequentialGroup()
-							.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)
-							.addContainerGap())
-						.addGroup(gl_panel_MoreSet.createSequentialGroup()
-							.addComponent(lblCookie, GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
-							.addGap(9))))
+						.addComponent(scrollPane_2, GroupLayout.DEFAULT_SIZE, 57, Short.MAX_VALUE)
+						.addComponent(lblUseragent, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(gl_panel_MoreSet.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblCookie, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(scrollPane_1, GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+					.addContainerGap())
 		);
+		
+		userAgent = new JTextArea();
+		userAgent.setText("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36");
+		userAgent.setLineWrap(true);
+		scrollPane_2.setViewportView(userAgent);
 		
 		textArea_cooikes = new JTextArea();
 		textArea_cooikes.setLineWrap(true);
@@ -202,7 +208,7 @@ public class MainUI extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				//高级设置中，设置的数据进行全局缓存
-				PageSpider.setCookiesMap(getTextArea_cooikes().getText());
+				PageSpider.setRequestParamBean();
 				
 				String t = getTextArea_url().getText();
 				if(t.indexOf("请将要抓取") > -1){
@@ -282,7 +288,15 @@ public class MainUI extends JFrame {
 		);
 		panel.setLayout(gl_panel);
 		
-		JLabel lblNewLabel = new JLabel("作者：管雷鸣    微信公众号:wangmarket");
+		JLabel lblNewLabel = new JLabel("点此使用帮助及视频讲解，让你5分钟掌握全部使用方式");
+		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 15));
+		lblNewLabel.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				SystemUtil.openUrl("http://tag.wscso.com/8144.html");
+			}
+		});
+		lblNewLabel.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		
 		JLabel lblNewLabel_1 = new JLabel("开源发布 gitee.com/mail_osc/templatespider");
 		lblNewLabel_1.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
@@ -345,13 +359,27 @@ public class MainUI extends JFrame {
 		if(moreSetPanel_use){
 			//有使用变为隐藏更多设置
 			panel_MoreSet.setVisible(false);
+			//隐藏右下角的作者信息
+			Global.mainUI.getPanel_explain().setVisible(false);
 			buttonMoreSet.setText("更多设置");
 			moreSetPanel_use = false;
+			
+			//将界面变小
+			Global.mainUI.setSize(500, 400);
+			
 		}else{
 			//有隐藏变为使用
 			panel_MoreSet.setVisible(true);
+			//显示右下角的作者信息
+			Global.mainUI.getPanel_explain().setVisible(true);
 			buttonMoreSet.setText("隐藏设置");
 			moreSetPanel_use = true;
+			
+			//将界面变大
+			Global.mainUI.setSize(900, 500);
 		}
 	} 
+	public JTextArea getUserAgent() {
+		return userAgent;
+	}
 }

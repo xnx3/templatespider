@@ -16,6 +16,10 @@ import com.xnx3.util.CheckVersion;
  */
 public class Menu {
 	
+	/**
+	 * 关于我们的菜单
+	 * @return
+	 */
 	public static JMenu aboutMenu(){
 		JMenu aboutMenu = new JMenu("关于");
 		
@@ -58,4 +62,29 @@ public class Menu {
 		return aboutMenu;
 	}
 	
+	/**
+	 * 建站的菜单
+	 * @return
+	 */
+	public static JMenu wangmarketMenu(){
+		JMenu siteMenu = new JMenu("建站");
+		
+		JMenuItem mianfeiMenuItem = new JMenuItem("免费开通网站");
+		siteMenu.add(mianfeiMenuItem);
+		mianfeiMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://wang.market/regByPhone.do?inviteid=50");
+			}
+		});
+		JMenuItem wscMenuItem = new JMenuItem("网市场云建站系统官网");
+		siteMenu.add(wscMenuItem);
+		wscMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://www.wang.market");
+			}
+		});
+		
+		
+		return siteMenu;
+	}
 }

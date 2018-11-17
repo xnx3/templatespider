@@ -50,7 +50,7 @@ public class StringUtil {
 		
 		//进行长度比对，避免很长的字符串占用cpu
 		int i1 = str1.length();
-		int i2 = str1.length();
+		int i2 = str2.length();
 		double d = 0;	//结果在0~1，越接近1，则长度越相等
 		if(i1 > i2){
 			d = i2 / i1;
@@ -67,7 +67,7 @@ public class StringUtil {
 			//相等很小，但有可能
 		}else{
 			//这里了直接判定就是不相等了，别浪费时间了，直接给0.2打发掉
-			return 0.1;
+			return 0.2;
 		}
 		
 		count++;
