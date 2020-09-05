@@ -104,7 +104,7 @@ public class Main extends JFrame {
 	 */
 	public Main() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("模版计算工具  -  作者：管雷鸣");
+		setTitle("模版计算工具");
 		setBounds(100, 100, 1074, 617);
 		
 		JMenuBar menuBar = new JMenuBar();

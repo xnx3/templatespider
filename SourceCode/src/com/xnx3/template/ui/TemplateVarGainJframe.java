@@ -1,15 +1,10 @@
 package com.xnx3.template.ui;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
-import com.xnx3.template.Action;
 import com.xnx3.template.Global;
-
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JTextField;
@@ -18,9 +13,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.awt.Color;
-import javax.swing.UIManager;
-import javax.swing.border.LineBorder;
 import javax.swing.JTextArea;
 import java.awt.Font;
 

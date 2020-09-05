@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="lib/xnx3-2.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/jsoup-1.11.3.jar"/>
+	<classpathentry kind="lib" path="lib/xssProtect-0.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
