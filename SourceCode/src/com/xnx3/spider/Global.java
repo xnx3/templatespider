@@ -1,6 +1,8 @@
 package com.xnx3.spider;
 
 import com.xnx3.StringUtil;
+import com.xnx3.SystemUtil;
+import com.xnx3.UI;
 import com.xnx3.spider.ui.MainUI;
 import com.xnx3.ui.Log;
 
@@ -30,7 +32,16 @@ public class Global {
 	 */
 	public static String getLocalTemplatePath(){
 		if(localTemplatePath == null){
-			localTemplatePath = Global.class.getResource("/").getPath();
+			try {
+				localTemplatePath = Global.class.getResource("/").getPath();
+			} catch (Exception e) {
+				//如果jar包变成exe，那么会走cache，所以下面要判断是否为null
+				e.printStackTrace();
+			}
+			
+			if(localTemplatePath == null){
+				localTemplatePath = SystemUtil.getCurrentDir()+"/";
+			}
 			if(localTemplatePath.indexOf("%") > -1){
 				//判断路径中是否有URL编码，若有，进行转码为正常汉字
 				localTemplatePath = StringUtil.urlToString(localTemplatePath);

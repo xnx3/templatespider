@@ -233,9 +233,17 @@ public class MainUI extends JFrame {
 				getBtnNewButton_Start().setText("扒取中..");
 				getBtnNewButton_Start().setEnabled(false);
 				
-				com.xnx3.spider.Global.templateDomain = UrlUtil.getDomain(urls[0]);
+				try {
+					com.xnx3.spider.Global.templateDomain = UrlUtil.getDomain(urls[0]);
+				} catch (Exception e2) {
+					UI.showMessageDialog(e2.getMessage());
+				}
 				Global.log("初始化创建存放文件夹： "+Global.getLocalTemplatePath());
-				Initialize.createCacheFile();
+				try {
+					Initialize.createCacheFile();
+				} catch (Exception e3) {
+					UI.showMessageDialog(e3.getMessage());
+				}
 				
 				
 				new Thread(new Runnable() {

@@ -144,11 +144,7 @@ public class PageSpider {
 			//将此变为html后缀的页面进行保存
 			htmlName = beforeName+ (dynamicParam.length() > 0 ? "__"+dynamicParam:"") +".html";
 			
-			try {
-				FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, encode);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, encode);
 		} catch (IOException e) {
 			com.xnx3.spider.Global.log(e.getMessage()+" -- "+url);
 			e.printStackTrace();
