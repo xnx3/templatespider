@@ -61,7 +61,7 @@ public class Menu {
 		
 		JMenuItem mntmNewMenuItem_2 = new JMenuItem("访问官网");
 		aboutMenu.add(mntmNewMenuItem_2);
-		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+		mntmNewMenuItem_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				SystemUtil.openUrl("http://www.templatespider.zvo.cn");
 			}
