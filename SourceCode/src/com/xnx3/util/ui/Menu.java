@@ -33,7 +33,7 @@ public class Menu {
 						+ "\nQQ：921153866"
 						+ "\n微信：xnx3com"
 						+ "\n邮箱：mail@xnx3.com"
-						+ "\n官网：www.wang.market"
+						+ "\n官网：www.templatespider.zvo.cn"
 						+ "\n微信公众号: wangmarket"
 						+ "\n开源发布：https://github.com/xnx3/templatespider");
 			}
@@ -44,7 +44,7 @@ public class Menu {
 		hezuoMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UI.showMessageDialog(""
-						+ "无论你是哪个行业，若我们对你有用，欢迎联系我们！只要对我方有好处，能推动我方前进，都有机会合作！");
+						+ "欢迎各位朋友与我方合作！我方拥有的资源：云建站、云商城、云客服，走最基础最底层的路子！公司官网www.leimingyun.com ，欢迎加我微信xnx3com");
 			}
 		});
 		
@@ -58,6 +58,15 @@ public class Menu {
 				}
 			}
 		});
+		
+		JMenuItem mntmNewMenuItem_2 = new JMenuItem("访问官网");
+		aboutMenu.add(mntmNewMenuItem_2);
+		mntmNewMenuItem_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SystemUtil.openUrl("http://www.templatespider.zvo.cn");
+			}
+		});
+		
 		
 		return aboutMenu;
 	}
