@@ -7,7 +7,7 @@
 <br/>
 ## 软件下载
 支持Windows、Mac、Linux等系统。下载后解压，即可一键运行！<br/>
-[下载网址http://www.wang.market/4302.html](http://www.wang.market/4302.html)
+[下载网址 www.templatespider.zvo.cn](http://www.templatespider.zvo.cn/#rjxz)
 <br/>
 
 ## 项目分支简介
