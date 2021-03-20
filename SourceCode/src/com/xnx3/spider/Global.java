@@ -1,5 +1,7 @@
 package com.xnx3.spider;
 
+import java.io.File;
+
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
 import com.xnx3.spider.ui.MainUI;
@@ -33,22 +35,37 @@ public class Global {
 	 */
 	public static String getLocalTemplatePath(){
 		if(localTemplatePath == null){
-			try {
-				localTemplatePath = Global.class.getResource("/").getPath();
-			} catch (Exception e) {
-				//如果jar包变成exe，那么会走cache，所以下面要判断是否为null
-				e.printStackTrace();
-			}
-			
-			if(localTemplatePath == null){
-				localTemplatePath = SystemUtil.getCurrentDir()+"/";
-			}
-			if(localTemplatePath.indexOf("%") > -1){
-				//判断路径中是否有URL编码，若有，进行转码为正常汉字
-				localTemplatePath = StringUtil.urlToString(localTemplatePath);
+			//判断当前系统是否是mac
+			if(SystemUtil.isMacOS()){
+				//是mac，如果mac放到应用程序文件夹下，是没法自动创建文件夹的，所以要创建到别的地方
+				localTemplatePath = System.getProperty("user.home")+File.separator+"templatespider"+File.separator;	//拔下来的文件存放的文件夹
+				
+				//如果配置文件目录不存在，那么自动创建
+				File file = new File(localTemplatePath);
+				if(!file.exists()){
+					file.mkdirs();
+				}
+			}else {
+				//windows系统或其他
+				
+				try {
+					localTemplatePath = Global.class.getResource("/").getPath();
+				} catch (Exception e) {
+					//如果jar包变成exe，那么会走cache，所以下面要判断是否为null
+					e.printStackTrace();
+				}
+				
+				if(localTemplatePath == null){
+					localTemplatePath = SystemUtil.getCurrentDir()+"/";
+				}
+				if(localTemplatePath.indexOf("%") > -1){
+					//判断路径中是否有URL编码，若有，进行转码为正常汉字
+					localTemplatePath = StringUtil.urlToString(localTemplatePath);
+				}
 			}
 		}
-		return localTemplatePath+templateDomain+"/";
+		
+		return localTemplatePath+templateDomain+File.separator;
 	}
 	
 	public static void main(String[] args) {
