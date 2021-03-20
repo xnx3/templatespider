@@ -146,6 +146,7 @@ public class PageSpider {
 			
 			//将此变为html后缀的页面进行保存
 			htmlName = beforeName+ (dynamicParam.length() > 0 ? "__"+dynamicParam:"") +".html";
+			htmlName = htmlName.replaceAll("/", "");
 			
 			FileUtil.write(com.xnx3.spider.Global.getLocalTemplatePath()+htmlName, html, encode);
 		} catch (IOException e) {
@@ -274,6 +275,11 @@ public class PageSpider {
 		while (matcher.find()) {
 			String src = matcher.group(1);	//src的地址
 			if(src != null && src.length() > 2){
+				if(src.trim().indexOf("data:image/") > -1){
+					//是 data:image/svg+xml; 这种的，那么就不用下载了
+					continue;
+				}
+				
 				String srcUrl = StringUtil.hierarchyReplace(uriPath, src);
 				if(srcUrl.indexOf(CACHE_STRING) == -1){
 					//如果没有缓存过，那才进行缓存
