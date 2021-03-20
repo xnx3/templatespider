@@ -13,7 +13,6 @@ import com.xnx3.DateUtil;
 import com.xnx3.Lang;
 import com.xnx3.StringUtil;
 import com.xnx3.SystemUtil;
-import com.xnx3.UI;
 import com.xnx3.file.FileUtil;
 import com.xnx3.template.Global;
 import com.xnx3.template.TemplateCompute;

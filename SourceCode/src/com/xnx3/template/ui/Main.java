@@ -22,7 +22,7 @@ import javax.swing.table.TableModel;
 import javax.swing.JButton;
 
 import com.xnx3.SystemUtil;
-import com.xnx3.UI;
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.template.Action;
 import com.xnx3.template.GainTemplateVar;
 import com.xnx3.template.Global;
@@ -182,7 +182,7 @@ public class Main extends JFrame {
 			    }
 			    
 				if(getTemplateVarJTable().getSelectedColumn() == 3){
-					if(UI.showConfirmDialog("确定要删除［"+value+"］吗") == UI.CONFIRM_YES){
+					if(DialogUtil.showConfirmDialog("确定要删除［"+value+"］吗") == DialogUtil.CONFIRM_YES){
 						System.out.println("选择了删除："+value);
 						getTemplateVarTableModel().removeRow(row);
 						//删除缓存的模版变量
@@ -194,7 +194,7 @@ public class Main extends JFrame {
 					Action.previewDiffUI(Global.templateVarMap.get(value).getElementDiffListVO());
 				}else{
 					if(Global.templateVarMap.get(value) == null){
-						UI.showMessageDialog("该变量已被删除");
+						DialogUtil.showMessageDialog("该变量已被删除");
 						//刷新，到UI界面显示最新模版变量
 						Action.showUITemplateVarJTabel();
 					}else{
@@ -634,7 +634,7 @@ public class Main extends JFrame {
 			    }
 			    
 				if(getTemplateVarJTable().getSelectedColumn() == 3){
-					if(UI.showConfirmDialog("确定要删除［"+value+"］吗") == UI.CONFIRM_YES){
+					if(DialogUtil.showConfirmDialog("确定要删除［"+value+"］吗") == DialogUtil.CONFIRM_YES){
 						System.out.println("选择了删除："+value);
 						getTemplateVarTableModel().removeRow(row);
 						//删除缓存的模版变量
@@ -646,7 +646,7 @@ public class Main extends JFrame {
 					Action.previewDiffUI(Global.templateVarMap.get(value).getElementDiffListVO());
 				}else{
 					if(Global.templateVarMap.get(value) == null){
-						UI.showMessageDialog("该变量已被删除");
+						DialogUtil.showMessageDialog("该变量已被删除");
 						//刷新，到UI界面显示最新模版变量
 						Action.showUITemplateVarJTabel();
 					}else{

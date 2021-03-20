@@ -81,6 +81,12 @@ public class Cache {
 	 */
 	public static synchronized void downFile(Resource resource){
 		try {
+			Thread.sleep(Global.delayTime);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		
+		try {
 			FileUtil.downFiles(resource.getNetUrl(), resource.getLocalUrl());
 		}catch(java.io.FileNotFoundException notFind){
 			Global.log("404 File Not Found !  "+resource.getNetUrl());
@@ -93,6 +99,7 @@ public class Cache {
 	}
 	
 	public static void main(String[] args) throws IOException {
-		FileUtil.downFiles("http://www.xingyucjb.com/Public/Wap/images/b4.png", "/images/js/b4.png");
+		//https://subject.autohome.com.cn/dealer/2021/3/gacmotor_sd/
+		FileUtil.downFiles("http://", "/images/1.html");
 	}
 }

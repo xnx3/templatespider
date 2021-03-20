@@ -14,7 +14,6 @@ import org.jsoup.select.Elements;
 
 import com.xnx3.BaseVO;
 import com.xnx3.StringUtil;
-import com.xnx3.UI;
 import com.xnx3.file.FileUtil;
 import com.xnx3.template.bean.ElementDiffRecord;
 import com.xnx3.template.bean.Template;

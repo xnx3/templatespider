@@ -1,4 +1,4 @@
-package com.xnx3;
+package com.xnx3.util;
 
 /**
  * url网址相关操作

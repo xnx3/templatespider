@@ -7,7 +7,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
 import com.xnx3.SystemUtil;
-import com.xnx3.UI;
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.util.CheckVersion;
 
 /**
@@ -27,7 +27,7 @@ public class Menu {
 		aboutMenu.add(mntmNewMenuItem);
 		mntmNewMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UI.showMessageDialog(""
+				DialogUtil.showMessageDialog(""
 						+ "\n当前版本：v"+com.xnx3.G.VERSION
 						+ "\n作者：管雷鸣"
 						+ "\nQQ：921153866"
@@ -43,7 +43,7 @@ public class Menu {
 		aboutMenu.add(hezuoMenuItem);
 		hezuoMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UI.showMessageDialog(""
+				DialogUtil.showMessageDialog(""
 						+ "欢迎各位朋友与我方合作！我方拥有的资源：云建站、云商城、云客服，走最基础最底层的路子！公司官网www.leimingyun.com ，欢迎加我微信xnx3com");
 			}
 		});
@@ -54,7 +54,7 @@ public class Menu {
 		mntmNewMenuItem_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(!CheckVersion.cloudCheck()){
-					UI.showMessageDialog("当前已是最新版本！");
+					DialogUtil.showMessageDialog("当前已是最新版本！");
 				}
 			}
 		});

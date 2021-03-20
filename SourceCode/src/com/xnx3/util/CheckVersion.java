@@ -1,7 +1,7 @@
 package com.xnx3.util;
 
 import com.xnx3.SystemUtil;
-import com.xnx3.UI;
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.G;
 import com.xnx3.version.VersionUtil;
 import com.xnx3.version.VersionVO;
@@ -19,7 +19,7 @@ public class CheckVersion {
 	public static boolean cloudCheck(){
 		VersionVO vo = VersionUtil.cloudContrast("http://version.xnx3.com/templatespider.html", G.VERSION);
 		if(vo.isFindNewVersion()){
-			if(UI.showConfirmDialog("发现新版本：v"+vo.getNewVersion()) == UI.CONFIRM_YES){
+			if(DialogUtil.showConfirmDialog("发现新版本：v"+vo.getNewVersion()) == DialogUtil.CONFIRM_YES){
 				SystemUtil.openUrl(vo.getPreviewUrl());
 			}
 			return true;

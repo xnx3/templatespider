@@ -3,7 +3,6 @@ package com.xnx3.spider.cache;
 import com.xnx3.G;
 import com.xnx3.Lang;
 import com.xnx3.Log;
-import com.xnx3.UI;
 import com.xnx3.UrlUtil;
 import com.xnx3.file.FileUtil;
 import com.xnx3.spider.Global;

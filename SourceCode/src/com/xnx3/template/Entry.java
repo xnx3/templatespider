@@ -5,12 +5,12 @@ import org.jvnet.substance.SubstanceLookAndFeel;
 import org.jvnet.substance.skin.SubstanceOfficeBlue2007LookAndFeel;
 import org.jvnet.substance.theme.SubstanceCremeTheme;
 
-import com.xnx3.UI;
 import com.xnx3.util.AutoRun;
+import com.xnx3.util.SkinUtil;
 
 public class Entry {
 	public static void main(String[] args) {
-		new UI().UseLookAndFeelBySubstance().setCurrentTheme(new SubstanceCremeTheme());
+		new SkinUtil().UseLookAndFeelBySubstance().setCurrentTheme(new SubstanceCremeTheme());
 		
 		
 		Global.mainUI.setVisible(true);

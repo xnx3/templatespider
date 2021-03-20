@@ -23,9 +23,9 @@ import org.jsoup.select.Elements;
 
 import com.xnx3.DateUtil;
 import com.xnx3.Lang;
-import com.xnx3.UI;
 import com.xnx3.exception.NotReturnValueException;
 import com.xnx3.file.FileUtil;
+import com.xnx3.swing.DialogUtil;
 import com.xnx3.template.Global;
 import com.xnx3.template.bean.ElementDiffRecord;
 import com.xnx3.template.bean.Template;
@@ -108,7 +108,7 @@ public class Action {
 			Document doc = temp.getDoc();
 			String baseUri = Global.mainUI.getTextArea_ResourceUrl().getText().trim();
 			if(baseUri == null){
-				UI.showMessageDialog("请先输入资源路径");
+				DialogUtil.showMessageDialog("请先输入资源路径");
 				return;
 			}
 			if(baseUri.lastIndexOf("/")+1 == baseUri.length()){
@@ -491,7 +491,7 @@ public class Action {
 						//若没有这个title，那么需要新增加一个
 						Elements headElements = doc.getElementsByTag("head");
 						if(headElements == null || headElements.size() == 0){
-							UI.showMessageDialog("模版页面"+temp.getFile().getName()+"中无head标签！模版页估计不完整！请手动补上head标签");
+							DialogUtil.showMessageDialog("模版页面"+temp.getFile().getName()+"中无head标签！模版页估计不完整！请手动补上head标签");
 							return;
 						}else{
 //							titleEle = new Element(tag, baseUri)

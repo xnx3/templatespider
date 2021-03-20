@@ -39,6 +39,9 @@ public class PageSpider {
 		requestParamBean = new RequestParamBean();
 		requestParamBean.setUserAgent(Global.mainUI.getUserAgent().getText());
 		requestParamBean.setCookies(Global.mainUI.getTextArea_cooikes().getText());
+		
+		Global.delayTime = Lang.stringToInt(Global.mainUI.getDelayTimeTextField().getText(), 100);
+		Global.log("下载延迟间隔: "+Global.delayTime+"ms");
 	}
 	
 	public static void main(String[] args) {
